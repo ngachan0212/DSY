@@ -1,0 +1,24 @@
+.container {
+    box-sizing: border-box;
+    background-color: #192E29;
+    width: 100vw;
+    overflow: hidden;
+    min-height: 75vh;
+    padding: 50px 50px;
+}
+
+.yellowText {
+    color: #EAE7B1;
+}
+
+.categoryText {
+    border-bottom: 1px solid #EAE7B1;
+}
+
+.formContainer {
+    background-color: #EAE7B1;
+    padding-left: 5%;
+    padding-top: 3%;
+    padding-bottom: 30px;
+    box-sizing: border-box;
+}

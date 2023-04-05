@@ -1,0 +1,20 @@
+.containerFooter {
+    padding: 20px 50px;
+    background-color: #EAE7B1;
+}
+
+.subTitle {
+    color: #3C6255
+}
+
+.headerFooter {
+    color: #192E29;
+}
+
+.flexBox {
+    display: flex;
+}
+
+.redText {
+    color: #F16255
+}
