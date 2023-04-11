@@ -6,11 +6,12 @@
 import {
     fork,
 } from 'redux-saga/effects';
-/** login */
-
+import {watchImage} from './images';
+import {watchProduct} from './products';
 
 function* rootSaga() {
-
+    yield fork(watchImage);
+    yield fork(watchProduct);
 }
 
 export default rootSaga;

@@ -1,7 +1,9 @@
 import { combineReducers } from 'redux';
-
+import imageReducer from './images';
+import productReducer from './products';
 const reducer = combineReducers({
-
+    images: imageReducer,
+    products: productReducer,
 });
 const rootReducer = (state, action) => {
     let stateTemp = state;
