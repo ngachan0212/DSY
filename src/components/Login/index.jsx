@@ -2,11 +2,15 @@ import React, { useEffect, useState } from 'react'
 import { Box, Grid, Typography, Tabs, Tab, IconButton } from '@mui/material';
 import styles from './styles.module.css'
 import { Form } from './Form';
-import { fetchLogin } from '../../api/login';
+// import { fetchLogin } from '../../api/login';
 import { useNavigate, Navigate } from "react-router-dom";
+import {useDispatch} from 'react-redux';
+import {
+    fetchLogin
+} from '../../reducers/login';
 const LoginContainers = (props) => {
   const navigate = useNavigate();
-
+  const dispatch = useDispatch();
   const initialForm = {
     userName: "",
     password: ""
@@ -22,11 +26,8 @@ const LoginContainers = (props) => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const rs = await fetchLogin(loginForm);
-    if (rs?.data?.success) {
-      localStorage.setItem('TOKEN', rs.data.data.token);
-      navigate("/home");
-    }
+    dispatch(fetchLogin({params: loginForm, navigate: navigate}))
+    setLoginForm(initialForm);
   }
   const token = localStorage.getItem('TOKEN');
   return !token ? (

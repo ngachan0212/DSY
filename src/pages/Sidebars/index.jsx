@@ -29,7 +29,7 @@ export default function MenuAppBar() {
   useEffect(() => {
     const token = localStorage.getItem('TOKEN');
     if (!token) setAuth(false);
-  })
+  },[])
   const handleLogout = () => {
     localStorage.clear();
     navigate("/login");

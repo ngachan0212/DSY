@@ -21,7 +21,6 @@ export const axiosBodyToAPI = async (method, uri, body, json = true) => {
         } else {
             result = await axios.post(uri, body, headerConfig);
         }
-        console.log(result,'result')
         return result;
     } catch (error) {
         console.log(error,'errors')

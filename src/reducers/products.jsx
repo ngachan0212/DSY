@@ -1,4 +1,5 @@
-// import { toastError, toastSuccess } from '@helpers/ToastHelper/toastHelper';
+import { toastError, toastSuccess } from '../components/ToastHelper/toastHelper';
+
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
@@ -52,13 +53,13 @@ const productsSlice = createSlice({
         },
         fetchCreateProductSuccess: (state, action) => {
             const { data, items, message } = action.payload;
-            // toastSuccess(message);
+            toastSuccess(message);
             state.isCreateSuccess = true;
             state.isLoading = false;
         },
         fetchCreateProductFailed: (state, action) => {
-            const { error } = action.payload;
-            // toastError(error);
+            const { error, message } = action.payload;
+            toastError(error);
             state.isLoading = false;
             state.isCreateSuccess = false;
             state.error = error;

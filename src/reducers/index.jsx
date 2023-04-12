@@ -1,9 +1,11 @@
 import { combineReducers } from 'redux';
 import imageReducer from './images';
 import productReducer from './products';
+import loginReducer from './login';
 const reducer = combineReducers({
     images: imageReducer,
     products: productReducer,
+    login: loginReducer,
 });
 const rootReducer = (state, action) => {
     let stateTemp = state;

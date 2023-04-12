@@ -16,7 +16,7 @@ import Button from '@mui/material/Button';
 import clsx from 'clsx';
 export default function FormCreate (props) {
     const {openDialog, handleOnChange, handleCloseDialog, selectedImage, handleSubmit,
-    handleUploadImage,} = props;
+    handleUploadImage, dataInput} = props;
     const fileInputRef = useRef();
     
     return (
@@ -40,6 +40,7 @@ export default function FormCreate (props) {
                         name="productName"
                         onChange={(event)=>handleOnChange(event)}
                         required
+                        value={dataInput.productName}
                     />
                 </Box>
                 <Box sx={{marginBottom: "20px"}}>
@@ -47,7 +48,7 @@ export default function FormCreate (props) {
                     <Select
                         labelId="demo-simple-select-standard-label"
                         id="demo-simple-select-standard"
-                        value={10}
+                        value={dataInput.category}
                         label="Age"
                         variant="standard"
                         sx={{minWidth: "100px"}}
@@ -55,9 +56,9 @@ export default function FormCreate (props) {
                         onChange={(event)=>handleOnChange(event)}
                         required
                     >
-                    <MenuItem value={10}>Ten</MenuItem>
-                    <MenuItem value={20}>Twenty</MenuItem>
-                    <MenuItem value={30}>Thirty</MenuItem>
+                    <MenuItem value={"Cosmetic"}>Cosmetic</MenuItem>
+                    <MenuItem value={"Lipstick"}>Lipstick</MenuItem>
+                    <MenuItem value={"Makeup"}>Makeup</MenuItem>
                     </Select>
                 </Box>
                 <Box sx={{marginBottom: "20px"}}>
@@ -72,6 +73,7 @@ export default function FormCreate (props) {
                         name="description"
                         onChange={(event)=>handleOnChange(event)}
                         required
+                        value={dataInput.description}
                     />
                 </Box>
                 <Box sx={{marginBottom: "20px"}}>
@@ -89,6 +91,7 @@ export default function FormCreate (props) {
                         name="price"
                         onChange={(event)=>handleOnChange(event)}
                         required
+                        value={dataInput.price}
                     />
                 </Box>
                     </Grid>

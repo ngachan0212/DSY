@@ -127,6 +127,7 @@ const HomePage = (props) => {
                 </Grid>
             </Grid>
             <FormCreate 
+            dataInput={dataInput}
                 handleOnChange={handleOnChange}
                 openDialog={openDialog}
                 handleCloseDialog={handleCloseDialog}
