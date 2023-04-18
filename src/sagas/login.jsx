@@ -19,7 +19,7 @@ function* actionFetchLogin(action) {
         yield delay(500);
         const { params, navigate } = action.payload;
         const response = yield call(fetchLoginApi, params);
-        const { status, data } = response;
+        const { data } = response;
         if ( data.success === true) {
             yield localStorage.setItem('TOKEN', data);
             yield put(fetchLoginSuccess(data));

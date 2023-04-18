@@ -20,7 +20,7 @@ function* actionFetchCreateImage(action) {
         yield delay(500);
         const { params } = action.payload;
         const response = yield call(fetchCreateImageApi, params);
-        const { status, data } = response;
+        const { data } = response;
         if ( data.success === true) {
             yield put(fetchCreateImageSuccess(data));
         } else {

@@ -13,7 +13,7 @@ const loginSlice = createSlice({
             state.infoLogin = null;
         },
         fetchLoginSuccess: (state, action) => {
-            const { data, items, message } = action.payload;
+            const { data, message } = action.payload;
             toastSuccess(message);
             state.infoLogin = data;
         },

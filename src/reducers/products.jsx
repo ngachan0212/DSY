@@ -52,13 +52,13 @@ const productsSlice = createSlice({
             state.isCreateSuccess = false;
         },
         fetchCreateProductSuccess: (state, action) => {
-            const { data, items, message } = action.payload;
+            const {  message } = action.payload;
             toastSuccess(message);
             state.isCreateSuccess = true;
             state.isLoading = false;
         },
         fetchCreateProductFailed: (state, action) => {
-            const { error, message } = action.payload;
+            const { error } = action.payload;
             toastError(error);
             state.isLoading = false;
             state.isCreateSuccess = false;

@@ -7,26 +7,26 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import styles from './styles.module.css'
 
-export default function CardComponent() {
+export default function CardComponent(props) {
+    const {data} = props;
     return (
         <Card sx={{ maxWidth: 300 }}>
             <CardMedia
                 sx={{ height: 200 }}
-                image="https://images.unsplash.com/photo-1596462502278-27bfdc403348?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=880&q=80"
+                image={data.image}
                 title="green iguana"
             />
-            <CardContent>
+            <CardContent sx={{textAlign: 'center'}}>
                 <Typography className={styles.yellowColor}>
-                    Redfill Foaming...
+                   {data.productName}
                 </Typography>
                 <Typography variant="subtitle2" gutterBottom className={styles.yellowColor} sx={{ fontWeight: 'bold' }}>
-                    250.000 Đ
+                    {data.price} $
                 </Typography>
             </CardContent>
-            {/* <CardActions>
-        <Button size="small">Share</Button>
-        <Button size="small">Learn More</Button>
-      </CardActions> */}
+            <CardActions>
+                <Button size="small">View</Button>
+            </CardActions>
         </Card>
     );
 }

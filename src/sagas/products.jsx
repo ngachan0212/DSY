@@ -20,7 +20,7 @@ function* actionFetchCreateProduct(action) {
         yield delay(500);
         const { params } = action.payload;
         const response = yield call(fetchCreateProductApi, params);
-        const { status, data } = response;
+        const {  data } = response;
         if ( data.success === true) {
             yield put(fetchCreateProductSuccess(data));
         } else {
