@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react'
-import { Box, Grid, Typography, Tabs, Tab, IconButton } from '@mui/material';
+import { Box, Grid } from '@mui/material';
 import styles from './styles.module.css'
 import TextField from '@mui/material/TextField';
 import SearchIcon from '@mui/icons-material/Search';
@@ -12,7 +12,7 @@ import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 
 import clsx from 'clsx';
-import {useDispatch, useSelector} from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import {
     fetchCreateImage
 } from '../../reducers/images';
@@ -23,15 +23,15 @@ import { makeStyles } from '@mui/styles';
 const useStyles = makeStyles({
     root: {
         '& .MuiFormLabel-root': {
-        color: '#EAE7B1 !important',
-    },
+            color: '#EAE7B1 !important',
+        },
         '& .css-v4u5dn-MuiInputBase-root-MuiInput-root:before': {
             borderBottom: '1px solid #EAE7B1 !important',
         },
         '& .css-v4u5dn-MuiInputBase-root-MuiInput-root:after': {
             borderBottom: '1px solid #EAE7B1 !important',
         }
-},
+    },
     iconSelect: {
         '& .MuiSvgIcon-root': {
             color: '#EAE7B1 !important',
@@ -63,7 +63,7 @@ const HomePage = (props) => {
         setSelectedImage(file);
         const dataForm = new FormData();
         dataForm.append('file', file);
-        dispatch(fetchCreateImage({params: dataForm}));
+        dispatch(fetchCreateImage({ params: dataForm }));
     }
     const initialValue = {
         productName: '',
@@ -77,7 +77,7 @@ const HomePage = (props) => {
             ...dataInput,
             image: imageUrl,
         }
-        dispatch(fetchCreateProduct({params:dataForm}));
+        dispatch(fetchCreateProduct({ params: dataForm }));
         setDataInput(initialValue);
         setSelectedImage(null);
         setOpenDialog(false);
@@ -93,31 +93,31 @@ const HomePage = (props) => {
         <Box className={styles.container}>
             <Grid container spacing={2}>
                 <Grid item xs={2}>
-                    <ButtonComponent 
+                    <ButtonComponent
                         text={"Create new product"}
                         handleClick={handClickAdd}
                     />
                 </Grid>
                 <Grid item xs={8} >
-                <Box sx={{marginBottom: "20px", display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
-                    <InputLabel  id="demo-simple-select-label" sx={{paddingRight:'20px', color:"#EAE7B1"}}>Category: </InputLabel>
-                    <Select
-                        labelId="demo-simple-select-standard-label"
-                        id="demo-simple-select-standard"
-                        value={dataInput.category}
-                        label="Age"
-                        variant="standard"
-                        sx={{minWidth: "100px", color:"#EAE7B1"}}
-                        name="category"
-                        onChange={(event)=>handleOnChange(event)}
-                        required
-                        className={clsx(classes.iconSelect,styles.categoryText)}
-                    >
-                    <MenuItem value={"Cosmetic"}>Cosmetic</MenuItem>
-                    <MenuItem value={"Lipstick"}>Lipstick</MenuItem>
-                    <MenuItem value={"Makeup"}>Makeup</MenuItem>
-                    </Select>
-                </Box>
+                    <Box sx={{ marginBottom: "20px", display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                        <InputLabel id="demo-simple-select-label" sx={{ paddingRight: '20px', color: "#EAE7B1" }}>Category: </InputLabel>
+                        <Select
+                            labelId="demo-simple-select-standard-label"
+                            id="demo-simple-select-standard"
+                            value={dataInput.category}
+                            label="Age"
+                            variant="standard"
+                            sx={{ minWidth: "100px", color: "#EAE7B1" }}
+                            name="category"
+                            onChange={(event) => handleOnChange(event)}
+                            required
+                            className={clsx(classes.iconSelect, styles.categoryText)}
+                        >
+                            <MenuItem value={"Cosmetic"}>Cosmetic</MenuItem>
+                            <MenuItem value={"Lipstick"}>Lipstick</MenuItem>
+                            <MenuItem value={"Makeup"}>Makeup</MenuItem>
+                        </Select>
+                    </Box>
                 </Grid>
                 <Grid item xs={2}>
                     <Box sx={{ display: 'flex', alignItems: 'flex-end' }}>
@@ -131,12 +131,12 @@ const HomePage = (props) => {
                     </Box>
                 </Grid>
             </Grid>
-            <ProductComponent/>
-            <Box sx={{ display: 'flex', justifyContent: 'center', marginTop: "50px"}}>
-                <PaginationComponent/>
+            <ProductComponent />
+            <Box sx={{ display: 'flex', justifyContent: 'center', marginTop: "50px" }}>
+                <PaginationComponent />
             </Box>
-            <FormCreate 
-            dataInput={dataInput}
+            <FormCreate
+                dataInput={dataInput}
                 handleOnChange={handleOnChange}
                 openDialog={openDialog}
                 handleCloseDialog={handleCloseDialog}

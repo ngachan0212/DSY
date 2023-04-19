@@ -1,0 +1,18 @@
+.imageProduct {
+    width: 300px;
+    height: 300px;
+    object-fit: cover;
+}
+
+.title {
+    color: #fff;
+    font-size: 2em;
+    line-height: 1.3em;
+    width: 70%;
+    font-weight: bold;
+}
+
+.price {
+    font-weight: bold;
+    color: #fff;
+}

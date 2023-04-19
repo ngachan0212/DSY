@@ -4,6 +4,7 @@ import Footers from "./pages/Footers";
 import RegisterContainer from './components/Register';
 import LoginContainers from './components/Login';
 import HomePage from './containers/HomePage';
+import DetailProduct from './containers/DetailProduct';
 import { Box } from '@mui/material'
 import { Provider } from 'react-redux';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
@@ -15,7 +16,7 @@ function App() {
 
   return (
     <Provider store={configureStore}>
-      <ToastContainer/>
+      <ToastContainer />
       <Box style={{ maxWidth: '100vw', overflowX: 'hidden' }}>
         <BrowserRouter>
           <MenuAppBar />
@@ -24,6 +25,7 @@ function App() {
             <Route path="/login" element={<LoginContainers />} />
             <Route path="/register" element={<RegisterContainer />} />
             <Route path="/home" element={<ProtectedRoute component={HomePage} />} />
+            <Route path="/product/:id" element={<ProtectedRoute component={DetailProduct} />} />
           </Routes>
           <Footers />
         </BrowserRouter>
