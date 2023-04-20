@@ -15,11 +15,16 @@ const useStyles = makeStyles({
   },
 });
 export default function PaginationComponent(props) {
-  const {pagination} = props;
+  const { pagination, handlePagination } = props;
   const classes = useStyles();
   return (
     <Stack spacing={2}>
-      <Pagination className={classes.root} count={pagination.pageCount} defaultPage={pagination.currentPage} shape="rounded" />
+      <Pagination
+        onChange={handlePagination}
+        className={classes.root}
+        count={pagination.pageCount}
+        defaultPage={pagination.currentPage} s
+        hape="rounded" />
     </Stack>
   );
 }

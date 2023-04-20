@@ -46,6 +46,11 @@ const useStyles = makeStyles({
         }
     }
 });
+const initialFilters = {
+    search: '',
+    category: 'All',
+    page: 1,
+}
 const HomePage = (props) => {
     const [openDialog, setOpenDialog] = useState(false);
     const [selectedImage, setSelectedImage] = useState(null);
@@ -54,10 +59,13 @@ const HomePage = (props) => {
     const pagination = useSelector((state) => state.products.pagination);
     const dispatch = useDispatch();
     const classes = useStyles();
-
-    useEffect(()=>{
-        dispatch(fetchListProduct({}));
-    },[])
+    const [filters, setFilters] = useState(initialFilters);
+    useEffect(() => {
+        console.log(filters, 'filters')
+        dispatch(fetchListProduct({
+            params: filters,
+        }));
+    }, [filters])
 
     const handleCloseDialog = () => {
         setOpenDialog(false);
@@ -94,7 +102,18 @@ const HomePage = (props) => {
             [event.target.name]: event.target.value,
         })
     }
-
+    const handleFilter = (event) => {
+        setFilters({
+            ...filters,
+            [event.target.name]: event.target.value,
+        })
+    }
+    const handlePagination = (event, value) => {
+        setFilters({
+            ...filters,
+            page: value,
+        })
+    }
     return (
         <Box className={styles.container}>
             <Grid container spacing={2}>
@@ -110,18 +129,20 @@ const HomePage = (props) => {
                         <Select
                             labelId="demo-simple-select-standard-label"
                             id="demo-simple-select-standard"
-                            value={dataInput.category}
+                            value={filters.category}
                             label="Age"
                             variant="standard"
                             sx={{ minWidth: "100px", color: "#EAE7B1" }}
                             name="category"
-                            onChange={(event) => handleOnChange(event)}
+                            onChange={(event) => handleFilter(event)}
                             required
                             className={clsx(classes.iconSelect, styles.categoryText)}
                         >
-                            <MenuItem value={"Cosmetic"}>Cosmetic</MenuItem>
-                            <MenuItem value={"Lipstick"}>Lipstick</MenuItem>
-                            <MenuItem value={"Makeup"}>Makeup</MenuItem>
+                            <MenuItem value={"All"}>All</MenuItem>
+                            <MenuItem value={"Health and Beauty"}>Health and Beauty</MenuItem>
+                            <MenuItem value={"Housewares"}>Housewares</MenuItem>
+                            <MenuItem value={"Personal Care"}>Personal Care</MenuItem>
+                            <MenuItem value={"Baby Care"}>Baby Care</MenuItem>
                         </Select>
                     </Box>
                 </Grid>
@@ -133,13 +154,17 @@ const HomePage = (props) => {
                             sx={{ color: '#EAE7B1' }}
                             id="input-with-sx" label="Search"
                             inputProps={{ style: { color: "#EAE7B1" } }}
-                            variant="standard" />
+                            variant="standard"
+                            value={filters.search}
+                            name="search"
+                            onChange={(event) => handleFilter(event)}
+                        />
                     </Box>
                 </Grid>
             </Grid>
-            <ProductComponent productList={productList}/>
+            <ProductComponent productList={productList} />
             <Box sx={{ display: 'flex', justifyContent: 'center', marginTop: "50px" }}>
-                <PaginationComponent pagination={pagination}/>
+                <PaginationComponent pagination={pagination} handlePagination={handlePagination} />
             </Box>
             <FormCreate
                 dataInput={dataInput}
