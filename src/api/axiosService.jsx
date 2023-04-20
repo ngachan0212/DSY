@@ -27,3 +27,16 @@ export const axiosBodyToAPI = async (method, uri, body, json = true) => {
         return error;
     }
 };
+export const sendQueryToAPI = async (uri) => {
+    try {
+        const headerConfig = {
+            // headers: {
+                // 'x-access-token': xAccessToken,
+            // },
+        };
+        const result = await axios.get(uri, headerConfig);
+        return result;
+    } catch (error) {
+	    return error;
+    }
+};

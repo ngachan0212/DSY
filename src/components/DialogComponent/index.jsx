@@ -20,7 +20,7 @@ export default function DialogComponent(props) {
         </DialogContent>
         <DialogActions>
           <Button onClick={handleCloseDialog}>Cancel</Button>
-          <Button onClick={handleSubmit}>Create</Button>
+          <Button onClick={()=>handleSubmit()}>Create</Button>
         </DialogActions>
       </Dialog>
     </div>

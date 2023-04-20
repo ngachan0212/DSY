@@ -14,11 +14,12 @@ const useStyles = makeStyles({
     }
   },
 });
-export default function PaginationComponent() {
+export default function PaginationComponent(props) {
+  const {pagination} = props;
   const classes = useStyles();
   return (
     <Stack spacing={2}>
-      <Pagination className={classes.root} count={10} shape="rounded" />
+      <Pagination className={classes.root} count={pagination.pageCount} defaultPage={pagination.currentPage} shape="rounded" />
     </Stack>
   );
 }

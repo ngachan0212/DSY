@@ -17,7 +17,7 @@ import {
     fetchCreateImage
 } from '../../reducers/images';
 import {
-    fetchCreateProduct
+    fetchCreateProduct, fetchListProduct
 } from '../../reducers/products';
 import { makeStyles } from '@mui/styles';
 const useStyles = makeStyles({
@@ -50,8 +50,14 @@ const HomePage = (props) => {
     const [openDialog, setOpenDialog] = useState(false);
     const [selectedImage, setSelectedImage] = useState(null);
     const imageUrl = useSelector((state) => state.images.data);
+    const productList = useSelector((state) => state.products.dataList);
+    const pagination = useSelector((state) => state.products.pagination);
     const dispatch = useDispatch();
     const classes = useStyles();
+
+    useEffect(()=>{
+        dispatch(fetchListProduct({}));
+    },[])
 
     const handleCloseDialog = () => {
         setOpenDialog(false);
@@ -131,9 +137,9 @@ const HomePage = (props) => {
                     </Box>
                 </Grid>
             </Grid>
-            <ProductComponent />
+            <ProductComponent productList={productList}/>
             <Box sx={{ display: 'flex', justifyContent: 'center', marginTop: "50px" }}>
-                <PaginationComponent />
+                <PaginationComponent pagination={pagination}/>
             </Box>
             <FormCreate
                 dataInput={dataInput}

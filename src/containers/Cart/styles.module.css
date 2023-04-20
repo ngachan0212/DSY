@@ -5,7 +5,7 @@
 }
 
 .title {
-    color: #fff;
+    color: #F16255;
     font-size: 2em;
     line-height: 1.3em;
     width: 70%;
@@ -30,20 +30,16 @@
     border-color: #EAE7B1 !important;
 }
 
-.btnCart {
-    background-color: #3C6255 !important;
+.btnPurchase {
+    background-color: #F16255 !important;
     color: #fff !important;
     border: none;
     font-weight: bold;
     margin-right: 2em;
 }
 
-.btnCart:hover {
+.btnPurchase:hover {
     border: none;
-    background-color: #58904ed9 !important;
+    background-color: #fd5445d4 !important;
 }
 
-.boxDescription {
-    padding: 16px;
-    border: 1px solid #EAE7B1;
-}

@@ -15,20 +15,20 @@ const productsSlice = createSlice({
     name: 'products',
     initialState,
     reducers: {
-        // List
-        // fetchListLevel(state: any, params: any) {
-        //     state.dataList = [];
-        //     state.error = null;
-        // },
-        // fetchListLevelSuccess: (state, action) => {
-        //     const { data, items, paginator } = action.payload;
-        //     state.pagination = paginator;
-        //     state.dataList = items;
-        // },
-        // fetchListLevelFailed: (state, action) => {
-        //     const { error } = action.payload;
-        //     state.error = error;
-        // },
+        //List
+        fetchListProduct(state, params) {
+            state.dataList = [];
+            state.error = null;
+        },
+        fetchListProductSuccess: (state, action) => {
+            const { data } = action.payload;
+            state.pagination = data.paginator;
+            state.dataList = data.items;
+        },
+        fetchListProductFailed: (state, action) => {
+            const { error } = action.payload;
+            state.error = error;
+        },
         // Info
         // fetchInfoLevel(state: any, params: any) {
         //     state.dataInfo = {};
@@ -87,7 +87,7 @@ const productsSlice = createSlice({
     },
 });
 export const {
-    // fetchListLevel, fetchListLevelSuccess, fetchListLevelFailed,
+    fetchListProduct, fetchListProductSuccess, fetchListProductFailed,
     fetchCreateProduct, fetchCreateProductSuccess, fetchCreateProductFailed,
     // fetchInfoLevel, fetchInfoLevelSuccess, fetchInfoLevelFailed,
     // fetchUpdateLevel, fetchUpdateLevelSuccess, fetchUpdateLevelFailed,

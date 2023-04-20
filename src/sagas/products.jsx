@@ -1,9 +1,11 @@
 import {
     fetchCreateProductApi,
+    fetchListProductApi,
 } from '../api/productsAPI';
 
 import {
     fetchCreateProduct, fetchCreateProductSuccess, fetchCreateProductFailed,
+    fetchListProduct, fetchListProductSuccess, fetchListProductFailed,
 } from '../reducers/products';
 import {
     call,
@@ -32,9 +34,29 @@ function* actionFetchCreateProduct(action) {
         yield put(fetchCreateProductFailed(error));
     }
 }
+// List
+function* actionFetchListProduct(action) {
+    try {
+        // yield put(showLoading());
+        yield delay(500);
+        const { params } = action.payload;
+        const response = yield call(fetchListProductApi, params);
+        const {  data } = response;
+        if ( data.success === true) {
+            yield put(fetchListProductSuccess(data));
+        } else {
+            yield put(fetchListProductFailed(data));
+        }
+        // yield put(hideLoading());
+    } catch (error) {
+        // yield put(hideLoading());
+        yield put(fetchListProductFailed(error));
+    }
+}
 
 
 export function* watchProduct() {
     yield takeLatest(fetchCreateProduct.type, actionFetchCreateProduct);
+    yield takeLatest(fetchListProduct.type, actionFetchListProduct);
 
 }
