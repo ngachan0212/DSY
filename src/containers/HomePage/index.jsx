@@ -10,7 +10,6 @@ import FormCreate from './FormCreate';
 import InputLabel from '@mui/material/InputLabel';
 import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
-
 import clsx from 'clsx';
 import { useDispatch, useSelector } from 'react-redux';
 import {
@@ -119,6 +118,7 @@ const HomePage = (props) => {
             <Grid container spacing={2}>
                 <Grid item xs={2}>
                     <ButtonComponent
+                        styles={styles.yellowBtn}
                         text={"Create new product"}
                         handleClick={handClickAdd}
                     />

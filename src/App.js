@@ -27,7 +27,7 @@ function App() {
             <Route path="/register" element={<RegisterContainer />} />
             <Route path="/home" element={<ProtectedRoute component={HomePage} />} />
             <Route path="/cart" element={<ProtectedRoute component={Cart} />} />
-            <Route path="/product/:id" element={<ProtectedRoute component={DetailProduct} />} />
+            <Route path="/product/info/:id" element={<ProtectedRoute component={DetailProduct} />} />
           </Routes>
           <Footers />
         </BrowserRouter>

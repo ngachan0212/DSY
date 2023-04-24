@@ -38,3 +38,8 @@
     width: 100%;
     align-items: center;
 }
+
+.link {
+    color: #EAE7B1 !important;
+    text-decoration: none !important;
+}

@@ -2,3 +2,7 @@
     color: #EAE7B1;
 }
 
+.yellowBtn {
+    color: #EAE7B1 !important;
+    border: 1px solid #EAE7B1 !important;
+}

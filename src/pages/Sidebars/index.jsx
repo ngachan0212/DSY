@@ -14,7 +14,7 @@ import Menu from '@mui/material/Menu';
 import styles from './styles.module.css'
 import { useEffect } from 'react';
 import { useNavigate } from "react-router-dom";
-
+import { Link } from "react-router-dom";
 export default function MenuAppBar() {
   const [auth, setAuth] = React.useState(true);
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -29,7 +29,7 @@ export default function MenuAppBar() {
   useEffect(() => {
     const token = localStorage.getItem('TOKEN');
     if (!token) setAuth(false);
-  },[])
+  }, [])
   const handleLogout = () => {
     localStorage.clear();
     navigate("/login");
@@ -48,7 +48,9 @@ export default function MenuAppBar() {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            Photos
+            <Link to={'/home'} className={styles.link}>
+              Homepage
+            </Link>
           </Typography>
           {auth && (
             <div>

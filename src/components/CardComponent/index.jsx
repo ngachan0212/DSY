@@ -6,9 +6,12 @@ import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import styles from './styles.module.css'
-
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import DeleteIcon from '@mui/icons-material/Delete';
+import { convertFormatMoney } from '../../services/common.jsx';
+import { Link } from "react-router-dom";
 export default function CardComponent(props) {
-    const {data} = props;
+    const { data } = props;
     return (
         <Card sx={{ maxWidth: 300 }}>
             <CardMedia
@@ -16,16 +19,19 @@ export default function CardComponent(props) {
                 image={data.image}
                 title="green iguana"
             />
-            <CardContent sx={{textAlign: 'center'}}>
+            <CardContent sx={{ textAlign: 'center' }}>
                 <Typography className={styles.yellowColor}>
-                   {data.productName}
+                    {data.productName}
                 </Typography>
                 <Typography variant="subtitle2" gutterBottom className={styles.yellowColor} sx={{ fontWeight: 'bold' }}>
-                    {data.price} $
+                    {convertFormatMoney(data.price)} $
                 </Typography>
             </CardContent>
-            <CardActions>
-                <Button size="small">View</Button>
+            <CardActions sx={{ display: 'flex', justifyContent: 'space-between' }}>
+                <Link to={`/product/info/${data?._id}`}>
+                    <Button className={styles.yellowBtn} size="small"><VisibilityIcon /></Button>
+                </Link>
+                <Button className={styles.yellowBtn} size="small"><DeleteIcon /></Button>
             </CardActions>
         </Card>
     );
