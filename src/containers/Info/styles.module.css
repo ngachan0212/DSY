@@ -1,0 +1,33 @@
+.usernameAvt {
+    color: #EAE7B1;
+}
+
+.subtitleAvt {
+    color: #fff;
+}
+
+.icon {
+    color: #EAE7B1;
+    height: 30px;
+    width: 30px;
+}
+
+.formContainer {
+    background-color: #EAE7B1;
+    padding: 20px;
+}
+
+.titleForm {
+    color: #192E29;
+}
+
+.fullWidth {
+    width: 100%;
+}
+
+.btn {
+    color: #EAE7B1;
+    background-color: #192E29;
+
+
+}

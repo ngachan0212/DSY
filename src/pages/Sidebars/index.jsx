@@ -11,6 +11,7 @@ import Switch from '@mui/material/Switch';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormGroup from '@mui/material/FormGroup';
 import MenuItem from '@mui/material/MenuItem';
+import Badge from '@mui/material/Badge';
 import Menu from '@mui/material/Menu';
 import styles from './styles.module.css'
 import { useEffect } from 'react';
@@ -34,6 +35,9 @@ export default function MenuAppBar() {
   const handleLogout = () => {
     localStorage.clear();
     navigate("/login");
+  }
+  const handleInfo = () => {
+    navigate("/info");
   }
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -63,7 +67,9 @@ export default function MenuAppBar() {
                 color="inherit"
               >
                 <Link to={'/cart'} className={styles.link}>
-                  <ShoppingCartIcon />
+                  <Badge className={styles.badgeStyle} badgeContent={2}>
+                    <ShoppingCartIcon />
+                  </Badge>
                 </Link>
               </IconButton>
               <IconButton
@@ -80,17 +86,18 @@ export default function MenuAppBar() {
                 id="menu-appbar"
                 anchorEl={anchorEl}
                 anchorOrigin={{
-                  vertical: 'top',
+                  vertical: 'bottom',
                   horizontal: 'right',
                 }}
                 keepMounted
                 transformOrigin={{
-                  vertical: 'top',
+                  vertical: 'bottom',
                   horizontal: 'right',
                 }}
                 open={Boolean(anchorEl)}
                 onClose={handleClose}
               >
+                <MenuItem onClick={handleInfo}>Info</MenuItem>
                 <MenuItem onClick={handleLogout}>Logout</MenuItem>
               </Menu>
             </div>

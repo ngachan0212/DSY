@@ -3,6 +3,7 @@ import MenuAppBar from "./pages/Sidebars";
 import Footers from "./pages/Footers";
 import RegisterContainer from './components/Register';
 import LoginContainers from './components/Login';
+import InfoContainer from './containers/Info';
 import HomePage from './containers/HomePage';
 import DetailProduct from './containers/DetailProduct';
 import Cart from './containers/Cart';
@@ -25,6 +26,7 @@ function App() {
             <Route path="/" element={<ProtectedRoute component={HomePage} />} />
             <Route path="/login" element={<LoginContainers />} />
             <Route path="/register" element={<RegisterContainer />} />
+            <Route path="/info" element={<InfoContainer />} />
             <Route path="/home" element={<ProtectedRoute component={HomePage} />} />
             <Route path="/cart" element={<ProtectedRoute component={Cart} />} />
             <Route path="/product/info/:id" element={<ProtectedRoute component={DetailProduct} />} />

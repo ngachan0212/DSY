@@ -12,6 +12,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import {
     fetchInfoProduct
 } from '../../reducers/products';
+import { convertFormatMoney } from '../../services/common.jsx';
+
 const reviewSample = [
     {
         image: "https://images.unsplash.com/photo-1656122986472-4755c0e4ff68?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=765&q=80",
@@ -69,7 +71,7 @@ export default function DetailProduct(props) {
                             {data.productName} - {data.description}
                         </Typography>
                         <Typography className={styles.price} variant="h6" gutterBottom mt={5}>
-                            {data.price} Đ
+                            {convertFormatMoney(data.price)} Đ
                         </Typography>
                         <Box display="flex" alignItems="center" mt={5}>
                             <Typography className={styles.label} variant="subtitle1" mr={3}>
