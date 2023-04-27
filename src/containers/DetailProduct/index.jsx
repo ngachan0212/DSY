@@ -28,6 +28,21 @@ const reviewSample = [
 ]
 export default function DetailProduct(props) {
     const [quantity, setQuantity] = useState(1);
+    const handleChangeQuantity = (value, type) => {
+        switch (type) {
+            case 'minus': {
+                if (quantity <= 1) break;
+                setQuantity(prev => prev - 1);
+                break;
+            }
+            case 'plus': {
+                setQuantity(prev => prev + 1);
+                break;
+            }
+            default:
+                break;
+        }
+    }
     const { id } = useParams();
     return (
         <Main>
@@ -50,11 +65,11 @@ export default function DetailProduct(props) {
                                 Quantity
                             </Typography>
                             <ButtonGroup className={styles.yellowBorder} variant="outlined" aria-label="outlined button group">
-                                <Button className={styles.yellowBorder}>
+                                <Button className={styles.yellowBorder} onClick={() => handleChangeQuantity(1, 'minus')}>
                                     <RemoveIcon className={styles.colorWhite} />
                                 </Button>
                                 <Button className={clsx(styles.colorWhite, styles.yellowBorder)}>{quantity}</Button>
-                                <Button className={styles.yellowBorder}>
+                                <Button className={styles.yellowBorder} onClick={() => handleChangeQuantity(1, 'plus')}>
                                     <AddIcon className={styles.colorWhite} />
                                 </Button>
                             </ButtonGroup>
