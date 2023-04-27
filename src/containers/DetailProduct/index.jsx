@@ -8,7 +8,10 @@ import { useState } from 'react';
 import styles from './styles.module.css';
 import clsx from 'clsx';
 import { useLocation, useParams } from 'react-router-dom';
-
+import { useDispatch, useSelector } from 'react-redux';
+import {
+    fetchInfoProduct
+} from '../../reducers/products';
 const reviewSample = [
     {
         image: "https://images.unsplash.com/photo-1656122986472-4755c0e4ff68?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=765&q=80",
@@ -27,6 +30,10 @@ const reviewSample = [
     },
 ]
 export default function DetailProduct(props) {
+    const data = useSelector((state) => state.products.dataInfo);
+    const dispatch = useDispatch();
+    const { id } = useParams();
+
     const [quantity, setQuantity] = useState(1);
     const handleChangeQuantity = (value, type) => {
         switch (type) {
@@ -43,7 +50,11 @@ export default function DetailProduct(props) {
                 break;
         }
     }
-    const { id } = useParams();
+    React.useEffect(() => {
+        dispatch(fetchInfoProduct({
+            params: id,
+        }));
+    }, [])
     return (
         <Main>
             <Box>
@@ -55,10 +66,10 @@ export default function DetailProduct(props) {
                     </Grid>
                     <Grid item xs={9}>
                         <Typography variant="h3" gutterBottom className={styles.title}>
-                            Kose - Softymo Sppedy Cleasing Oil 230ml
+                            {data.productName} - {data.description}
                         </Typography>
                         <Typography className={styles.price} variant="h6" gutterBottom mt={5}>
-                            250.000 Đ
+                            {data.price} Đ
                         </Typography>
                         <Box display="flex" alignItems="center" mt={5}>
                             <Typography className={styles.label} variant="subtitle1" mr={3}>

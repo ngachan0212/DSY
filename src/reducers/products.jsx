@@ -30,20 +30,17 @@ const productsSlice = createSlice({
             state.error = error;
         },
         // Info
-        // fetchInfoLevel(state: any, params: any) {
-        //     state.dataInfo = {};
-        //     state.error = null;
-        // },
-        // fetchInfoLevelSuccess: (state, action) => {
-        //     // const { data, items } = action.payload;
-        //     // console.log('action.payload', action.payload);
-
-        //     state.dataInfo = action.payload;
-        // },
-        // fetchInfoLevelFailed: (state, action) => {
-        //     const { error } = action.payload;
-        //     state.error = error;
-        // },
+        fetchInfoProduct(state, params) {
+            state.dataInfo = {};
+            state.error = null;
+        },
+        fetchInfoProductSuccess: (state, action) => {
+            state.dataInfo = action.payload.data;
+        },
+        fetchInfoProductFailed: (state, action) => {
+            const { error } = action.payload;
+            state.error = error;
+        },
 
         // Create
         fetchCreateProduct(state, params) {
@@ -52,7 +49,7 @@ const productsSlice = createSlice({
             state.isCreateSuccess = false;
         },
         fetchCreateProductSuccess: (state, action) => {
-            const {  message } = action.payload;
+            const { message } = action.payload;
             toastSuccess(message);
             state.isCreateSuccess = true;
             state.isLoading = false;
@@ -89,7 +86,7 @@ const productsSlice = createSlice({
 export const {
     fetchListProduct, fetchListProductSuccess, fetchListProductFailed,
     fetchCreateProduct, fetchCreateProductSuccess, fetchCreateProductFailed,
-    // fetchInfoLevel, fetchInfoLevelSuccess, fetchInfoLevelFailed,
+    fetchInfoProduct, fetchInfoProductSuccess, fetchInfoProductFailed,
     // fetchUpdateLevel, fetchUpdateLevelSuccess, fetchUpdateLevelFailed,
 } = productsSlice.actions;
 

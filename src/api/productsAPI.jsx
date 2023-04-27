@@ -20,10 +20,6 @@ export const fetchListProductApi = (params = {}) => {
 };
 
 export const fetchInfoProductApi = (params = {}) => {
-    let queryParams = '';
-    if (Object.keys(params).length > 0) {
-        queryParams = `?${queryString.stringify(params)}`;
-    }
-    return sendQueryToAPI(`${API_INFO_PRODUCT}${queryParams}`);
+    return sendQueryToAPI(`${API_INFO_PRODUCT}/${params}`);
 };
 
