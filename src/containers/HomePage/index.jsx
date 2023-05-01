@@ -16,7 +16,7 @@ import {
     fetchCreateImage
 } from '../../reducers/images';
 import {
-    fetchCreateProduct, fetchListProduct
+    fetchCreateProduct, fetchListProduct, fetchDeleteProduct
 } from '../../reducers/products';
 import { makeStyles } from '@mui/styles';
 const useStyles = makeStyles({
@@ -55,6 +55,7 @@ const HomePage = (props) => {
     const [selectedImage, setSelectedImage] = useState(null);
     const imageUrl = useSelector((state) => state.images.data);
     const productList = useSelector((state) => state.products.dataList);
+    const isLoading = useSelector((state) => state.products.isLoading);
     // const productList = [{
     //     productName: "productName",
     //     price: 20000,
@@ -70,7 +71,7 @@ const HomePage = (props) => {
         dispatch(fetchListProduct({
             params: filters,
         }));
-    }, [filters])
+    }, [filters, isLoading])
 
     const handleCloseDialog = () => {
         setOpenDialog(false);
@@ -118,6 +119,11 @@ const HomePage = (props) => {
             ...filters,
             page: value,
         })
+    }
+    const handleDeleteProduct = (productObjId) => {
+        dispatch(fetchDeleteProduct({
+            params: { productObjId }
+        }))
     }
     return (
         <Box className={styles.container}>
@@ -168,7 +174,10 @@ const HomePage = (props) => {
                     </Box>
                 </Grid>
             </Grid>
-            <ProductComponent productList={productList} />
+            <ProductComponent
+                handleDeleteProduct={handleDeleteProduct}
+                productList={productList}
+                filters={filters} />
             <Box sx={{ display: 'flex', justifyContent: 'center', marginTop: "50px" }}>
                 <PaginationComponent pagination={pagination} handlePagination={handlePagination} />
             </Box>

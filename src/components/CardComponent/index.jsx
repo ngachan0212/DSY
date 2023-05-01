@@ -11,7 +11,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import { convertFormatMoney } from '../../services/common.jsx';
 import { Link } from "react-router-dom";
 export default function CardComponent(props) {
-    const { data } = props;
+    const { data, handleDeleteProduct } = props;
     return (
         <Card sx={{ maxWidth: 300 }}>
             <CardMedia
@@ -31,7 +31,9 @@ export default function CardComponent(props) {
                 <Link to={`/product/info/${data?._id}`}>
                     <Button className={styles.yellowBtn} size="small"><VisibilityIcon /></Button>
                 </Link>
-                <Button className={styles.yellowBtn} size="small"><DeleteIcon /></Button>
+                <Button
+                    onClick={() => handleDeleteProduct(data?._id)}
+                    className={styles.yellowBtn} size="small"><DeleteIcon /></Button>
             </CardActions>
         </Card>
     );

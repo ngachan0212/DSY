@@ -6,7 +6,8 @@ import LoginContainers from './components/Login';
 import InfoContainer from './containers/Info';
 import HomePage from './containers/HomePage';
 import DetailProduct from './containers/DetailProduct';
-import Cart from './containers/Cart';
+import CartContainer from './containers/Cart';
+import OrderContainer from './containers/OrderContainer';
 import { Box } from '@mui/material'
 import { Provider } from 'react-redux';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
@@ -28,7 +29,8 @@ function App() {
             <Route path="/register" element={<RegisterContainer />} />
             <Route path="/info" element={<InfoContainer />} />
             <Route path="/home" element={<ProtectedRoute component={HomePage} />} />
-            <Route path="/cart" element={<ProtectedRoute component={Cart} />} />
+            <Route path="/cart" element={<ProtectedRoute component={CartContainer} />} />
+            <Route path="/order" element={<ProtectedRoute component={OrderContainer} />} />
             <Route path="/product/info/:id" element={<ProtectedRoute component={DetailProduct} />} />
           </Routes>
           <Footers />

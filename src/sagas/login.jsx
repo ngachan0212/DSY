@@ -20,8 +20,9 @@ function* actionFetchLogin(action) {
         const { params, navigate } = action.payload;
         const response = yield call(fetchLoginApi, params);
         const { data } = response;
-        if ( data.success === true) {
-            yield localStorage.setItem('TOKEN', data);
+        if (data.success === true) {
+            yield localStorage.setItem('TOKEN', data.accessToken);
+            yield localStorage.setItem('USER_INFO', JSON.stringify(data.data));
             yield put(fetchLoginSuccess(data));
             navigate('/home')
         } else {

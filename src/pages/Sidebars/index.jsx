@@ -17,7 +17,15 @@ import styles from './styles.module.css'
 import { useEffect } from 'react';
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  fetchListCarts
+} from '../../reducers/carts';
 export default function MenuAppBar() {
+  const listProducts = useSelector((state) => state.carts.listProducts);
+  const isLoading = useSelector((state) => state.carts.isLoading);
+
+  const dispatch = useDispatch();
   const [auth, setAuth] = React.useState(true);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const navigate = useNavigate();
@@ -28,6 +36,18 @@ export default function MenuAppBar() {
   const handleClose = () => {
     setAnchorEl(null);
   };
+  useEffect(() => {
+    const dataInfo = localStorage.getItem('USER_INFO');
+    if (dataInfo) {
+      const userObjId = JSON.parse(dataInfo)._id;
+      dispatch(fetchListCarts({
+        params: {
+          userObjId,
+        }
+      }))
+    }
+  }, [isLoading])
+
   useEffect(() => {
     const token = localStorage.getItem('TOKEN');
     if (!token) setAuth(false);
@@ -67,7 +87,7 @@ export default function MenuAppBar() {
                 color="inherit"
               >
                 <Link to={'/cart'} className={styles.link}>
-                  <Badge className={styles.badgeStyle} badgeContent={2}>
+                  <Badge className={styles.badgeStyle} badgeContent={listProducts.length}>
                     <ShoppingCartIcon />
                   </Badge>
                 </Link>

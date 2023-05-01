@@ -12,6 +12,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import {
     fetchInfoProduct
 } from '../../reducers/products';
+import {
+    fetchAddToCart
+} from '../../reducers/carts';
 import { convertFormatMoney } from '../../services/common.jsx';
 
 const reviewSample = [
@@ -57,6 +60,21 @@ export default function DetailProduct(props) {
             params: id,
         }));
     }, [])
+    const handleAddToCart = () => {
+        const userInfo = localStorage.getItem('USER_INFO');
+        const userObjId = JSON.parse(userInfo)._id;
+        const paramsSubmit = {};
+        paramsSubmit.userObjId = userObjId;
+        paramsSubmit.productObjIds = [];
+        paramsSubmit.productObjIds.push({
+            productObjId: id,
+            quantity,
+        })
+        dispatch(fetchAddToCart({
+            params: paramsSubmit,
+        }))
+        setQuantity(1);
+    }
     return (
         <Main>
             <Box>
@@ -88,7 +106,11 @@ export default function DetailProduct(props) {
                             </ButtonGroup>
                         </Box>
                         <Box mt={7}>
-                            <Button className={styles.btnCart} variant="outlined" startIcon={<ShoppingCartIcon />}>
+                            <Button
+                                onClick={handleAddToCart}
+                                className={styles.btnCart}
+                                variant="outlined"
+                                startIcon={<ShoppingCartIcon />}>
                                 Add to cart
                             </Button>
                         </Box>

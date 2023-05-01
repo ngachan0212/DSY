@@ -1,17 +1,90 @@
 import * as React from 'react';
 import Main from '../../pages/Main';
-import { Box, Grid, Typography, ButtonGroup, Button, Avatar   } from '@mui/material';
-import {useState} from 'react';
+import { Box, Grid, Typography, ButtonGroup, Button, Avatar } from '@mui/material';
+import { useState } from 'react';
 import styles from './styles.module.css';
 import clsx from 'clsx';
 import TableComponent from '../../components/TableComponent';
 import DeleteIcon from '@mui/icons-material/Delete';
 import styled from 'styled-components'
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  fetchListCarts,
+  fetchDeleteInCart,
+} from '../../reducers/carts';
+import {
+  fetchPurchase,
+} from '../../reducers/orders';
+import { convertFormatMoney } from '../../services/common.jsx';
+import PurchaseDialog from './PurchaseDialog';
 
+export default function CartContainer(props) {
+  const initialValue = {
+    address: '',
+    phoneNumber: '',
+    receiverName: '',
+  }
+  const listProducts = useSelector((state) => state.carts.listProducts);
+  const isLoading = useSelector((state) => state.orders.isLoading);
+  const isLoadingCart = useSelector((state) => state.carts.isLoading);
+  const dispatch = useDispatch();
+  const [openPurchaseDialog, setOpenPurchaseDialog] = useState(false);
+  const [dataInput, setDataInput] = useState(initialValue);
+  const handleOnChange = (event) => {
+    setDataInput({
+      ...dataInput,
+      [event.target.name]: event.target.value,
+    })
+  }
+  const handlePurchase = () => {
+    const dataInfo = localStorage.getItem('USER_INFO');
+    const userObjId = JSON.parse(dataInfo)._id;
+    const submitParams = {};
+    submitParams.address = dataInput.address;
+    submitParams.phoneNumber = dataInput.phoneNumber;
+    submitParams.receiverName = dataInput.receiverName;
+    submitParams.totalPrice = calToltalPrice();
+    submitParams.productObjIds = listProducts;
+    submitParams.userObjId = userObjId;
+    dispatch(fetchPurchase({
+      params: submitParams,
+    }))
+    setOpenPurchaseDialog(false);
+    setDataInput(initialValue);
+  }
+  useEffect(() => {
+    const dataInfo = localStorage.getItem('USER_INFO');
+    if (dataInfo) {
+      const userObjId = JSON.parse(dataInfo)._id;
+      dispatch(fetchListCarts({
+        params: {
+          userObjId,
+        }
+      }))
+    }
+  }, [isLoading, isLoadingCart])
+  const handleDeleteInCart = (productObjId) => {
+    const deleteParams = {};
+    const dataInfo = localStorage.getItem('USER_INFO');
+    if (dataInfo) {
+      const userObjId = JSON.parse(dataInfo)._id;
+      deleteParams.userObjId = userObjId;
+      deleteParams.productObjId = productObjId;
+      dispatch(fetchDeleteInCart({
+        params: deleteParams,
+      }))
+    }
+  }
+  const handleOpenPurchaseDialog = () => {
+    setOpenPurchaseDialog(true);
+  }
+  const handleClosePurchaseDialog = () => {
+    setDataInput(initialValue);
+    setOpenPurchaseDialog(false);
 
-export default function DetailProduct(props) {
-    const [quantity, setQuantity] = useState(1);
-    const Styles = styled.div`
+  }
+  const Styles = styled.div`
   padding: 1rem;
 
   table {
@@ -47,78 +120,98 @@ export default function DetailProduct(props) {
     }
   }
 `
-const columns = React.useMemo( () => [
+  const columns = React.useMemo(() => [
     {
-        Header: 'Product',
-        accessor: 'productName',
-        colorText: '#fff',
-      },
-      {
-        Header: 'Category',
-        accessor: 'category',
-        colorText: '#fff',
-      },
-      {
-        Header: 'Price',
-        accessor: 'price',
-        colorText: '#fff',
-      },
-      {
-        Header: 'Quantity',
-        accessor: 'quantity',
-        colorText: '#fff',
-      },
-      {
-        Header: 'Action',
-        accessor: 'action',
-        colorText: '#fff',
-        Cell: (value) => {
-            return (
-            <React.Fragment style={{textAlign: 'center'}}>
-                <Button>
-                    <DeleteIcon className={styles.colorWhite}/>
-                </Button>
-            </React.Fragment>)
-        }
-      },
-] )
-const data = [
-    {
-        productName: "12",
-        category: "visits",
-        price: "status",
-        quantity: "progress",
-        action: "progress",
+      Header: 'Product',
+      accessor: 'productObjId.productName',
+      colorText: '#fff',
     },
     {
-        productName: "12",
-        category: "visits",
-        price: "status",
-        quantity: "progress",
-        action: "progress",
+      Header: 'Category',
+      accessor: 'productObjId.category',
+      colorText: '#fff',
     },
     {
-        productName: "12",
-        category: "visits",
-        price: "status",
-        quantity: "progress",
-        action: "progress",
+      Header: 'Price',
+      accessor: 'productObjId.price',
+      colorText: '#fff',
+      Cell: (value) => {
+        return (
+          <p>{convertFormatMoney(value.cell.value)}</p>
+        )
+      }
     },
-]
-    return (
-        <Main>
-             <Typography class={styles.title} variant="h3" gutterBottom>
-                YOUR CART
-             </Typography>
-             <Styles>
-                 <TableComponent columns={columns} data={data}/>
-             </Styles>
-             <Typography class={styles.colorWhite} variant="h3" gutterBottom>
-                TOTAL PRICE: 200.000.00 Đ
-             </Typography>
-             <Box textAlign="right" mr={3} mt={4}>
-                <Button variant="contained" className={styles.btnPurchase}>Purchase</Button>
-             </Box>
-        </Main>
-    );
+    {
+      Header: 'Quantity',
+      accessor: 'quantity',
+      colorText: '#fff',
+    },
+    {
+      Header: 'Action',
+      accessor: 'action',
+      colorText: '#fff',
+      Cell: (value) => {
+        const productObjId = value.row.original.productObjId._id;
+        return (
+          <Box style={{ textAlign: 'center' }}>
+            <Button onClick={() => handleDeleteInCart(productObjId)}>
+              <DeleteIcon className={styles.colorWhite} />
+            </Button>
+          </Box>)
+      }
+    },
+  ])
+  // const data = [
+  //   {
+  //     productName: "12",
+  //     category: "visits",
+  //     price: "status",
+  //     quantity: "progress",
+  //     action: "progress",
+  //   },
+  //   {
+  //     productName: "12",
+  //     category: "visits",
+  //     price: "status",
+  //     quantity: "progress",
+  //     action: "progress",
+  //   },
+  //   {
+  //     productName: "12",
+  //     category: "visits",
+  //     price: "status",
+  //     quantity: "progress",
+  //     action: "progress",
+  //   },
+  // ]
+  const calToltalPrice = () => {
+    return listProducts.reduce((prev, curr) => prev + curr.productObjId.price * curr.quantity, 0)
+  }
+  return (
+    <Main>
+      <Typography class={styles.title} variant="h3" gutterBottom>
+        YOUR CART
+      </Typography>
+      <Styles>
+        <TableComponent columns={columns} data={listProducts} />
+      </Styles>
+      <Typography class={styles.colorWhite} variant="h3" gutterBottom>
+        TOTAL PRICE: {convertFormatMoney(calToltalPrice())} VND
+      </Typography>
+      <Box textAlign="right" mr={3} mt={4}>
+        <Button
+          onClick={handleOpenPurchaseDialog}
+          variant="contained"
+          className={styles.btnPurchase}>Purchase
+        </Button>
+      </Box>
+      <PurchaseDialog
+        handlePurchase={handlePurchase}
+        dataInput={dataInput}
+        handleOnChange={handleOnChange}
+        openDialog={openPurchaseDialog}
+        handleCloseDialog={handleClosePurchaseDialog}
+      />
+    </Main>
+  );
 }

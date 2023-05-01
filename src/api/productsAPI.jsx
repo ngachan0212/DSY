@@ -4,7 +4,7 @@ import queryString from 'query-string';
 const API_CREATE_PRODUCT = "http://localhost:5000/auth/products/create";
 const API_LIST_PRODUCT = "http://localhost:5000/auth/products/list";
 const API_INFO_PRODUCT = "http://localhost:5000/auth/products/info";
-
+const API_DELETE_PRODUCT = "http://localhost:5000/auth/products/delete";
 
 export const fetchCreateProductApi = (params) => {
     console.log('params', params)
@@ -21,5 +21,9 @@ export const fetchListProductApi = (params = {}) => {
 
 export const fetchInfoProductApi = (params = {}) => {
     return sendQueryToAPI(`${API_INFO_PRODUCT}/${params}`);
+};
+export const fetchDeleteProductApi = (params) => {
+    const body = params;
+    return axiosBodyToAPI('DELETE', API_DELETE_PRODUCT, body);
 };
 

@@ -18,7 +18,7 @@ const IndeterminateCheckbox = React.forwardRef(
 
     return (
       <>
-        <input  type="checkbox" ref={resolvedRef} {...rest} />
+        <input type="checkbox" ref={resolvedRef} {...rest} />
       </>
     )
   }
@@ -43,23 +43,23 @@ function TableComponent({ columns, data }) {
     hooks => {
       hooks.visibleColumns.push(columns => [
         // Let's make a column for selection
-        {
-          id: 'selection',
-          // The header can use the table's getToggleAllRowsSelectedProps method
-          // to render a checkbox
-          Header: ({ getToggleAllRowsSelectedProps }) => (
-            <div>
-              <IndeterminateCheckbox {...getToggleAllRowsSelectedProps()} />
-            </div>
-          ),
-          // The cell can use the individual row's getToggleRowSelectedProps method
-          // to the render a checkbox
-          Cell: ({ row }) => (
-            <div>
-              <IndeterminateCheckbox {...row.getToggleRowSelectedProps()} />
-            </div>
-          ),
-        },
+        // {
+        // id: 'selection',
+        // The header can use the table's getToggleAllRowsSelectedProps method
+        // to render a checkbox
+        // Header: ({ getToggleAllRowsSelectedProps }) => (
+        //   <div>
+        //     <IndeterminateCheckbox {...getToggleAllRowsSelectedProps()} />
+        //   </div>
+        // ),
+        // The cell can use the individual row's getToggleRowSelectedProps method
+        // to the render a checkbox
+        // Cell: ({ row }) => (
+        //   <div>
+        //     <IndeterminateCheckbox {...row.getToggleRowSelectedProps()} />
+        //   </div>
+        // ),
+        // },
         ...columns,
       ])
     }
@@ -70,8 +70,8 @@ function TableComponent({ columns, data }) {
     <>
       <table {...getTableProps()}>
         <thead>
-          {headerGroups.map(headerGroup => (
-            <tr {...headerGroup.getHeaderGroupProps()}>
+          {headerGroups.map((headerGroup, index) => (
+            <tr {...headerGroup.getHeaderGroupProps()} key={index}>
               {headerGroup.headers.map(column => (
                 <th {...column.getHeaderProps()}>{column.render('Header')}</th>
               ))}
@@ -82,18 +82,18 @@ function TableComponent({ columns, data }) {
           {rows.slice(0, 10).map((row, i) => {
             prepareRow(row)
             return (
-              <tr {...row.getRowProps()}>
+              <tr {...row.getRowProps()} key={i}>
                 {row.cells.map(cell => {
-                  return <td {...cell.getCellProps()} 
-                  style={{color: cell.column.colorText}}
+                  return <td {...cell.getCellProps()}
+                    style={{ color: cell.column.colorText }}
                   >
-                  {cell.render('Cell')}</td>
+                    {cell.render('Cell')}</td>
                 })}
               </tr>
             )
           })}
         </tbody>
-      </table>
+      </table >
       {/* <p>Selected Rows: {Object.keys(selectedRowIds).length}</p>
       <pre>
         <code>

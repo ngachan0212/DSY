@@ -8,19 +8,21 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 
 export default function DialogComponent(props) {
-  const {children, open, handleCloseDialog, title, handleSubmit} = props;
+  const { children, open, handleCloseDialog,
+    title, handleSubmit, isPurchase, onlyClose } = props;
 
-
+  const submitBtn = isPurchase ? 'Purchase' : 'Create';
+  const closeBtn = onlyClose ? 'Close' : 'Cancel';
   return (
     <div>
       <Dialog fullWidth={true} open={open} onClose={handleCloseDialog}>
         <DialogTitle>{title}</DialogTitle>
         <DialogContent>
-         {children}
+          {children}
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleCloseDialog}>Cancel</Button>
-          <Button onClick={()=>handleSubmit()}>Create</Button>
+          <Button onClick={handleCloseDialog}>{closeBtn}</Button>
+          {!onlyClose && <Button onClick={() => handleSubmit()}>{submitBtn}</Button>}
         </DialogActions>
       </Dialog>
     </div>

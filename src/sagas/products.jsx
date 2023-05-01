@@ -2,13 +2,14 @@ import {
     fetchCreateProductApi,
     fetchListProductApi,
     fetchInfoProductApi,
+    fetchDeleteProductApi,
 } from '../api/productsAPI';
 
 import {
     fetchCreateProduct, fetchCreateProductSuccess, fetchCreateProductFailed,
     fetchListProduct, fetchListProductSuccess, fetchListProductFailed,
-    fetchInfoProduct, fetchInfoProductSuccess, fetchInfoProductFailed
-
+    fetchInfoProduct, fetchInfoProductSuccess, fetchInfoProductFailed,
+    fetchDeleteProduct, fetchDeleteProductSuccess, fetchDeleteProductFailed,
 } from '../reducers/products';
 import {
     call,
@@ -75,11 +76,29 @@ function* actionFetchInfoProduct(action) {
         yield put(fetchInfoProductFailed(error));
     }
 }
-
+// Delete
+function* actionFetchDeleteProduct(action) {
+    try {
+        // yield put(showLoading());
+        yield delay(500);
+        const { params } = action.payload;
+        const response = yield call(fetchDeleteProductApi, params);
+        const { data } = response;
+        if (data.success === true) {
+            yield put(fetchDeleteProductSuccess(data));
+        } else {
+            yield put(fetchDeleteProductFailed(data));
+        }
+        // yield put(hideLoading());
+    } catch (error) {
+        // yield put(hideLoading());
+        yield put(fetchDeleteProductFailed(error));
+    }
+}
 
 export function* watchProduct() {
     yield takeLatest(fetchCreateProduct.type, actionFetchCreateProduct);
     yield takeLatest(fetchListProduct.type, actionFetchListProduct);
     yield takeLatest(fetchInfoProduct.type, actionFetchInfoProduct);
-
+    yield takeLatest(fetchDeleteProduct.type, actionFetchDeleteProduct);
 }

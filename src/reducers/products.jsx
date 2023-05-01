@@ -61,33 +61,31 @@ const productsSlice = createSlice({
             state.isCreateSuccess = false;
             state.error = error;
         },
-        // Update
-        // fetchUpdateLevel(state: any, params: any) {
-        //     state.dataUpdate = [];
-        //     state.error = null;
-        //     state.isLoading = true;
-        //     state.isUpdateSuccess = false;
-        // },
-        // fetchUpdateLevelSuccess: (state, action) => {
-        //     const { data, items, message } = action.payload;
-        //     toastSuccess(message);
-        //     state.isUpdateSuccess = true;
-        //     state.isLoading = false;
-        // },
-        // fetchUpdateLevelFailed: (state, action) => {
-        //     const { error } = action.payload;
-        //     toastError(error);
-        //     state.isLoading = false;
-        //     state.isUpdateSuccess = false;
-        //     state.error = error;
-        // },
+        // Delete
+        fetchDeleteProduct(state, params) {
+            state.dataUpdate = [];
+            state.error = null;
+            state.isLoading = true;
+            state.isUpdateSuccess = false;
+        },
+        fetchDeleteProductSuccess: (state, action) => {
+            const { data, items, message } = action.payload;
+            toastSuccess(message);
+            state.isLoading = false;
+        },
+        fetchDeleteProductFailed: (state, action) => {
+            const { error } = action.payload;
+            toastError(error);
+            state.isLoading = false;
+            state.error = error;
+        },
     },
 });
 export const {
     fetchListProduct, fetchListProductSuccess, fetchListProductFailed,
     fetchCreateProduct, fetchCreateProductSuccess, fetchCreateProductFailed,
     fetchInfoProduct, fetchInfoProductSuccess, fetchInfoProductFailed,
-    // fetchUpdateLevel, fetchUpdateLevelSuccess, fetchUpdateLevelFailed,
+    fetchDeleteProduct, fetchDeleteProductSuccess, fetchDeleteProductFailed,
 } = productsSlice.actions;
 
 export default productsSlice.reducer;

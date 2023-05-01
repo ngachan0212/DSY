@@ -37,7 +37,7 @@ const InfoContainer = (props) => {
                         </Box>
                         <Box>
                             <Typography className={styles.usernameAvt} variant="h6" gutterBottom>
-                                Chan Chan
+                                Username
                             </Typography>
                             <Typography className={styles.subtitleAvt} variant="subtitle1" gutterBottom>
                                 Edit profile

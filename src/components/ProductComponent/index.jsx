@@ -5,20 +5,22 @@ import clsx from 'clsx';
 import styles from './styles.module.css'
 
 export default function ProductComponent(props) {
-  const {productList} = props;
+  const { productList, filters, handleDeleteProduct } = props;
 
   return (
-    <Grid container spacing={2} sx={{ mt:3, mb: 4 }}>
-        <Grid item xs={12}>
-            <Typography className={clsx(styles.yellowText, styles.categoryText)} variant="h6" gutterBottom>
-                Best Seller
-            </Typography>
-            </Grid>
-            {productList.map(item => (
-                 <Grid item xs={4} mb={4}>
-                    <CardComponent data={item}/>
-                </Grid>
-            ))}
+    <Grid container spacing={2} sx={{ mt: 3, mb: 4 }}>
+      <Grid item xs={12}>
+        <Typography className={clsx(styles.yellowText, styles.categoryText)} variant="h6" gutterBottom>
+          {filters.category}
+        </Typography>
+      </Grid>
+      {productList.map(item => (
+        <Grid item xs={4} mb={4}>
+          <CardComponent
+            handleDeleteProduct={handleDeleteProduct}
+            data={item} />
+        </Grid>
+      ))}
     </Grid>
   );
 }
