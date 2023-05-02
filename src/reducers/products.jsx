@@ -61,6 +61,22 @@ const productsSlice = createSlice({
             state.isCreateSuccess = false;
             state.error = error;
         },
+        // UPDATE
+        fetchUpdateProduct(state, params) {
+            state.error = null;
+            state.isLoading = true;
+        },
+        fetchUpdateProductSuccess: (state, action) => {
+            const { message } = action.payload;
+            toastSuccess(message);
+            state.isLoading = false;
+        },
+        fetchUpdateProductFailed: (state, action) => {
+            const { error } = action.payload;
+            toastError(error);
+            state.isLoading = false;
+            state.error = error;
+        },
         // Delete
         fetchDeleteProduct(state, params) {
             state.dataUpdate = [];
@@ -84,6 +100,7 @@ const productsSlice = createSlice({
 export const {
     fetchListProduct, fetchListProductSuccess, fetchListProductFailed,
     fetchCreateProduct, fetchCreateProductSuccess, fetchCreateProductFailed,
+    fetchUpdateProduct, fetchUpdateProductSuccess, fetchUpdateProductFailed,
     fetchInfoProduct, fetchInfoProductSuccess, fetchInfoProductFailed,
     fetchDeleteProduct, fetchDeleteProductSuccess, fetchDeleteProductFailed,
 } = productsSlice.actions;

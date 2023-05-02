@@ -24,9 +24,66 @@ import WcIcon from '@mui/icons-material/Wc';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import HomeIcon from '@mui/icons-material/Home';
 import Button from '@mui/material/Button';
-
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import Radio from '@mui/material/Radio';
+import RadioGroup from '@mui/material/RadioGroup';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import FormLabel from '@mui/material/FormLabel';
+import {
+    fetchInfoUser,
+    fetchUpdateUser,
+} from '../../reducers/users';
+import moment from 'moment';
+const initialValue = {
+    fullName: '',
+    email: '',
+    sex: 'female',
+    address: '',
+}
 const InfoContainer = (props) => {
-
+    const userData = useSelector((state) => state.users.dataInfo);
+    const dispatch = useDispatch();
+    const [date, setDate] = useState(new Date());
+    const [dataInput, setDataInput] = useState(initialValue);
+    const userObjId = JSON.parse(localStorage.getItem('USER_INFO'))._id;
+    const handleOnChange = (event) => {
+        setDataInput({
+            ...dataInput,
+            [event.target.name]: event.target.value,
+        })
+    }
+    useEffect(() => {
+        dispatch(fetchInfoUser({
+            params: userObjId,
+        }))
+    }, [])
+    useEffect(() => {
+        if (userData) {
+            setDataInput({
+                fullName: userData?.fullName,
+                email: userData?.email,
+                sex: userData?.sex,
+                address: userData?.address,
+            })
+            if (userData.dob) {
+                const formatDate = moment(userData.dob, 'DD/MM/YYYY').format('YYYY-MM-DD HH:mm:ss');
+                setDate(new Date(formatDate));
+            }
+        }
+    }, [userData])
+    const handleSave = () => {
+        const paramsSubmit = {};
+        paramsSubmit.userObjId = userObjId;
+        paramsSubmit.fullName = dataInput.fullName;
+        paramsSubmit.email = dataInput.email;
+        paramsSubmit.sex = dataInput.sex;
+        paramsSubmit.address = dataInput.address;
+        paramsSubmit.dob = moment(date).format('DD/MM/YYYY');
+        dispatch(fetchUpdateUser({
+            params: paramsSubmit,
+        }))
+    }
     return (
         <Main>
             <Grid container spacing={2}>
@@ -37,7 +94,7 @@ const InfoContainer = (props) => {
                         </Box>
                         <Box>
                             <Typography className={styles.usernameAvt} variant="h6" gutterBottom>
-                                Username
+                                {userData.username}
                             </Typography>
                             <Typography className={styles.subtitleAvt} variant="subtitle1" gutterBottom>
                                 Edit profile
@@ -61,20 +118,6 @@ const InfoContainer = (props) => {
                             <Grid item xs={2}>
                             </Grid>
                             <Grid item xs={10}>
-                                <FormControl variant="standard" sx={{ display: 'block', width: '100%', marginBottom: '30px' }} mb={2}>
-                                    <InputLabel htmlFor="input-with-icon-adornment">
-                                        Username
-                                    </InputLabel>
-                                    <Input
-                                        sx={{ width: '80%' }}
-                                        id="input-with-icon-adornment"
-                                        startAdornment={
-                                            <InputAdornment position="start">
-                                                <AccountCircle />
-                                            </InputAdornment>
-                                        }
-                                    />
-                                </FormControl>
                                 <FormControl variant="standard" sx={{ display: 'block', width: '100%', marginBottom: '30px' }}>
                                     <InputLabel htmlFor="input-with-icon-adornment">
                                         Name
@@ -87,6 +130,9 @@ const InfoContainer = (props) => {
                                                 <InsertEmoticonIcon />
                                             </InputAdornment>
                                         }
+                                        name='fullName'
+                                        value={dataInput.fullName}
+                                        onChange={(event) => handleOnChange(event)}
                                     />
                                 </FormControl>
                                 <FormControl variant="standard" sx={{ display: 'block', width: '100%', marginBottom: '30px' }}>
@@ -101,27 +147,38 @@ const InfoContainer = (props) => {
                                                 <EmailIcon />
                                             </InputAdornment>
                                         }
+                                        name='email'
+                                        value={dataInput.email}
+                                        onChange={(event) => handleOnChange(event)}
                                     />
                                 </FormControl>
                                 <FormControl variant="standard" sx={{ display: 'block', width: '100%', marginBottom: '30px' }}>
-                                    <InputLabel htmlFor="input-with-icon-adornment">
-                                        Sex
-                                    </InputLabel>
-                                    <Input
-                                        sx={{ width: '80%' }}
-                                        id="input-with-icon-adornment"
-                                        startAdornment={
-                                            <InputAdornment position="start">
-                                                <WcIcon />
-                                            </InputAdornment>
-                                        }
-                                    />
+                                    <FormLabel id="demo-row-radio-buttons-group-label">Gender</FormLabel>
+                                    <RadioGroup
+                                        defaultValue="female"
+                                        aria-labelledby="demo-row-radio-buttons-group-label"
+                                        sx={{ display: 'flex', flexDirection: 'row' }}
+                                        name="sex"
+                                        onChange={(event) => handleOnChange(event)}
+                                        value={dataInput.sex}
+                                    >
+                                        <FormControlLabel value="female" control={<Radio />} label="Female" />
+                                        <FormControlLabel value="male" control={<Radio />} label="Male" />
+                                        <FormControlLabel value="other" control={<Radio />} label="Other" />
+                                    </RadioGroup>
                                 </FormControl>
                                 <FormControl variant="standard" sx={{ display: 'block', width: '100%', marginBottom: '30px' }}>
-                                    <InputLabel htmlFor="input-with-icon-adornment">
-                                        Dob
-                                    </InputLabel>
-                                    <Input
+                                    <p>Dob</p>
+                                    <DatePicker
+                                        className={styles.datePicker}
+                                        selected={date}
+                                        name="dob"
+                                        onChange={(date) => setDate(date)}
+                                    // onChange={(date) => setStartDate(date)} 
+                                    />
+                                    {/* <InputLabel htmlFor="input-with-icon-adornment">
+                                    </InputLabel> */}
+                                    {/* <Input
                                         sx={{ width: '80%' }}
                                         id="input-with-icon-adornment"
                                         startAdornment={
@@ -129,7 +186,7 @@ const InfoContainer = (props) => {
                                                 <CalendarMonthIcon />
                                             </InputAdornment>
                                         }
-                                    />
+                                    /> */}
                                 </FormControl>
                                 <FormControl variant="standard" sx={{ display: 'block', width: '100%', marginBottom: '30px' }}>
                                     <InputLabel htmlFor="input-with-icon-adornment">
@@ -143,12 +200,18 @@ const InfoContainer = (props) => {
                                                 <HomeIcon />
                                             </InputAdornment>
                                         }
+                                        name='address'
+                                        value={dataInput.address}
+                                        onChange={(event) => handleOnChange(event)}
                                     />
                                 </FormControl>
                             </Grid>
                         </Grid>
                         <Box sx={{ textAlign: 'right' }}>
-                            <Button variant="contained" className={styles.btn}>Save</Button>
+                            <Button
+                                className={styles.btn}
+                                onClick={handleSave}
+                                variant="contained">Save</Button>
                         </Box>
                     </Box>
                 </Grid>

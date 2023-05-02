@@ -54,7 +54,7 @@ export const Form = (props) => {
                                 <TextField
                                     fullWidth
                                     id="outlined-search"
-                                    label="search"
+                                    label="Email"
                                     type="search"
                                     value={registerForm.email}
                                     name="email"

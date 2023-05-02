@@ -2,6 +2,17 @@
     color: #EAE7B1;
 }
 
+.category {
+    color: #EAE7B1;
+    border-radius: 10px;
+    border: 1px solid #EAE7B1;
+    padding: 0px 5px;
+}
+
+.cardContainer {
+    background-color: #3c6255 !important;
+}
+
 .yellowBtn {
     color: #EAE7B1 !important;
     border: 1px solid #EAE7B1 !important;

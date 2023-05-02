@@ -2,50 +2,48 @@ import { createSlice } from '@reduxjs/toolkit';
 import { toastError, toastSuccess } from '../components/ToastHelper/toastHelper';
 
 const initialState = {
-    listOrders: [],
+    listComment: [],
     isLoading: true,
     pagination: {},
-    isDelete: false,
 };
-const ordersSlice = createSlice({
-    name: 'orders',
+const commentsSlice = createSlice({
+    name: 'comments',
     initialState,
     reducers: {
         //List
-        fetchListOrders(state, params) {
-            state.listOrders = [];
+        fetchListComments(state, params) {
+            state.listComment = [];
             state.error = null;
         },
-        fetchListOrdersSuccess: (state, action) => {
+        fetchListCommentsSuccess: (state, action) => {
             const { data } = action.payload;
-            state.pagination = data.paginator;
-            state.listOrders = data.items;
+            state.listComment = data;
         },
-        fetchListOrdersFailed: (state, action) => {
+        fetchListCommentsFailed: (state, action) => {
             const { error } = action.payload;
             state.error = error;
         },
-        // Purchase
-        fetchPurchase(state, params) {
+        // Create
+        fetchCreateComment(state, params) {
             state.error = null;
             state.isLoading = true;
         },
-        fetchPurchaseSuccess: (state, action) => {
+        fetchCreateCommentSuccess: (state, action) => {
             const { message } = action.payload;
             toastSuccess(message);
             state.isLoading = false;
         },
-        fetchPurchaseFailed: (state, action) => {
+        fetchCreateCommentFailed: (state, action) => {
             const { error } = action.payload;
-            toastError(action.payload);
+            toastError(error);
             state.isLoading = false;
             state.error = error;
         },
     },
 });
 export const {
-    fetchListOrders, fetchListOrdersSuccess, fetchListOrdersFailed,
-    fetchPurchase, fetchPurchaseSuccess, fetchPurchaseFailed,
-} = ordersSlice.actions;
+    fetchListComments, fetchListCommentsSuccess, fetchListCommentsFailed,
+    fetchCreateComment, fetchCreateCommentSuccess, fetchCreateCommentFailed,
+} = commentsSlice.actions;
 
-export default ordersSlice.reducer;
+export default commentsSlice.reducer;

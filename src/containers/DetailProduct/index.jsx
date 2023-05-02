@@ -7,6 +7,7 @@ import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { useState } from 'react';
 import styles from './styles.module.css';
 import clsx from 'clsx';
+import CommentIcon from '@mui/icons-material/Comment';
 import { useLocation, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import {
@@ -15,31 +16,51 @@ import {
 import {
     fetchAddToCart
 } from '../../reducers/carts';
+import {
+    fetchListComments,
+    fetchCreateComment
+} from '../../reducers/comments';
 import { convertFormatMoney } from '../../services/common.jsx';
+import ReviewDialog from './ReviewDialog';
 
-const reviewSample = [
-    {
-        image: "https://images.unsplash.com/photo-1656122986472-4755c0e4ff68?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=765&q=80",
-        userName: "Law",
-        comment: "body1. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos blanditiis tenetur unde suscipit, quam beatae rerum inventore consectetur, neque doloribus, cupiditate numquam dignissimos laborum fugiat deleniti? Eum quasi quidem quibusdam.body1. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos blanditiis tenetur unde suscipit, quam beatae rerum inventore consectetur, neque doloribus, cupiditate numquam dignissimos laborum fugiat deleniti? Eum quasi quidem quibusdam."
-    },
-    {
-        image: "https://images.unsplash.com/photo-1656122986472-4755c0e4ff68?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=765&q=80",
-        userName: "Luffy",
-        comment: "body1. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos blanditiis tenetur unde suscipit, quam beatae rerum inventore consectetur, neque doloribus, cupiditate numquam dignissimos laborum fugiat deleniti? Eum quasi quidem quibusdam.body1. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos blanditiis tenetur unde suscipit, quam beatae rerum inventore consectetur, neque doloribus, cupiditate numquam dignissimos laborum fugiat deleniti? Eum quasi quidem quibusdam."
-    },
-    {
-        image: "https://images.unsplash.com/photo-1656122986472-4755c0e4ff68?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=765&q=80",
-        userName: "Garp",
-        comment: "body1. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos blanditiis tenetur unde suscipit, quam beatae rerum inventore consectetur, neque doloribus, cupiditate numquam dignissimos laborum fugiat deleniti? Eum quasi quidem quibusdam.body1. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos blanditiis tenetur unde suscipit, quam beatae rerum inventore consectetur, neque doloribus, cupiditate numquam dignissimos laborum fugiat deleniti? Eum quasi quidem quibusdam."
-    },
-]
+const initialValue = {
+    review: ''
+}
 export default function DetailProduct(props) {
     const data = useSelector((state) => state.products.dataInfo);
+    const comments = useSelector((state) => state.comments.listComment);
+    const isLoading = useSelector((state) => state.comments.isLoading);
     const dispatch = useDispatch();
     const { id } = useParams();
-
+    const dataInfo = localStorage.getItem('USER_INFO');
+    const userObjId = JSON.parse(dataInfo)._id;
+    const [openDialog, setOpenDialog] = useState(false);
     const [quantity, setQuantity] = useState(1);
+    const [reviewForm, setReviewForm] = useState(initialValue);
+
+    const handleOnChange = (event) => {
+        setReviewForm({
+            ...reviewForm,
+            [event.target.name]: event.target.value
+        })
+    }
+    const handleSubmit = () => {
+        dispatch(fetchCreateComment({
+            params: {
+                ...reviewForm,
+                userObjId,
+                productObjId: id,
+            }
+        }))
+        setOpenDialog(false);
+        setReviewForm(initialValue);
+    }
+    const handleOpenDialog = () => {
+        setOpenDialog(true);
+    }
+    const handleCloseDialog = () => {
+        setOpenDialog(false);
+    }
     const handleChangeQuantity = (value, type) => {
         switch (type) {
             case 'minus': {
@@ -59,7 +80,12 @@ export default function DetailProduct(props) {
         dispatch(fetchInfoProduct({
             params: id,
         }));
-    }, [])
+        dispatch(fetchListComments({
+            params: {
+                productObjId: id,
+            },
+        }));
+    }, [isLoading])
     const handleAddToCart = () => {
         const userInfo = localStorage.getItem('USER_INFO');
         const userObjId = JSON.parse(userInfo)._id;
@@ -81,12 +107,12 @@ export default function DetailProduct(props) {
                 <Grid container>
                     <Grid item xs={3}>
                         <Box display="flex" >
-                            <img className={styles.imageProduct} src="https://images.unsplash.com/photo-1656122986472-4755c0e4ff68?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=765&q=80" alt="" />
+                            <img className={styles.imageProduct} src={data.image} alt="" />
                         </Box>
                     </Grid>
                     <Grid item xs={9}>
                         <Typography variant="h3" gutterBottom className={styles.title}>
-                            {data.productName} - {data.description}
+                            {data.productName} - {data.category}
                         </Typography>
                         <Typography className={styles.price} variant="h6" gutterBottom mt={5}>
                             {convertFormatMoney(data.price)} Đ
@@ -122,16 +148,26 @@ export default function DetailProduct(props) {
                     </Typography>
                     <Box className={styles.boxDescription}>
                         <Typography className={styles.colorWhite} variant="body1" gutterBottom>
-                            body1. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos blanditiis tenetur unde suscipit, quam beatae rerum inventore consectetur, neque doloribus, cupiditate numquam dignissimos laborum fugiat deleniti? Eum quasi quidem quibusdam.body1. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos blanditiis tenetur unde suscipit, quam beatae rerum inventore consectetur, neque doloribus, cupiditate numquam dignissimos laborum fugiat deleniti? Eum quasi quidem quibusdam.
+                            {data.description}
                         </Typography>
                     </Box>
                 </Box>
                 <Box mt={8}>
-                    <Typography className={styles.colorWhite} variant="h4" gutterBottom mb={4}>
-                        Product Review
-                    </Typography>
+                    <Box display='flex' justifyContent="space-between" alignItem="center">
+                        <Typography className={styles.colorWhite} variant="h4" gutterBottom mb={4}>
+                            Product Review
+                        </Typography>
+                        <Button
+                            onClick={handleOpenDialog}
+                            size="small"
+                            className={styles.btnCart}
+                            variant="outlined">
+                            <CommentIcon />
+                        </Button>
+                    </Box>
+
                     <Box>
-                        {reviewSample.map((item, index) => (
+                        {comments.map((item, index) => (
                             <Box mb={5} key={index}>
                                 <Box display="flex" alignItems="center" mb={4}>
                                     <Avatar
@@ -140,20 +176,26 @@ export default function DetailProduct(props) {
                                         alt="Remy Sharp"
                                     />
                                     <Typography className={styles.colorWhite} variant="h5" gutterBottom>
-                                        {item.userName}
+                                        {item.userObjId.username}
                                     </Typography>
                                 </Box>
                                 <Box className={styles.boxDescription}>
                                     <Typography className={styles.colorWhite} variant="body1" gutterBottom>
-                                        {item.comment}
+                                        {item.review}
                                     </Typography>
                                 </Box>
                             </Box>
                         ))}
-
                     </Box>
                 </Box>
             </Box>
+            <ReviewDialog
+                openDialog={openDialog}
+                handleCloseDialog={handleCloseDialog}
+                handleOnChange={handleOnChange}
+                dataInput={reviewForm}
+                handleSubmit={handleSubmit}
+            />
         </Main>
     );
 }

@@ -23,33 +23,10 @@ const loginSlice = createSlice({
                 message,
             });
         },
-        // Update
-        // fetchUpdateLevel(state: any, params: any) {
-        //     state.dataUpdate = [];
-        //     state.error = null;
-        //     state.isLoading = true;
-        //     state.isUpdateSuccess = false;
-        // },
-        // fetchUpdateLevelSuccess: (state, action) => {
-        //     const { data, items, message } = action.payload;
-        //     toastSuccess(message);
-        //     state.isUpdateSuccess = true;
-        //     state.isLoading = false;
-        // },
-        // fetchUpdateLevelFailed: (state, action) => {
-        //     const { error } = action.payload;
-        //     toastError(error);
-        //     state.isLoading = false;
-        //     state.isUpdateSuccess = false;
-        //     state.error = error;
-        // },
     },
 });
 export const {
-    // fetchListLevel, fetchListLevelSuccess, fetchListLevelFailed,
     fetchLogin, fetchLoginSuccess, fetchLoginFailed,
-    // fetchInfoLevel, fetchInfoLevelSuccess, fetchInfoLevelFailed,
-    // fetchUpdateLevel, fetchUpdateLevelSuccess, fetchUpdateLevelFailed,
 } = loginSlice.actions;
 
 export default loginSlice.reducer;

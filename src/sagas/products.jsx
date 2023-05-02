@@ -3,10 +3,12 @@ import {
     fetchListProductApi,
     fetchInfoProductApi,
     fetchDeleteProductApi,
+    fetchUpdateProductApi,
 } from '../api/productsAPI';
 
 import {
     fetchCreateProduct, fetchCreateProductSuccess, fetchCreateProductFailed,
+    fetchUpdateProduct, fetchUpdateProductSuccess, fetchUpdateProductFailed,
     fetchListProduct, fetchListProductSuccess, fetchListProductFailed,
     fetchInfoProduct, fetchInfoProductSuccess, fetchInfoProductFailed,
     fetchDeleteProduct, fetchDeleteProductSuccess, fetchDeleteProductFailed,
@@ -36,6 +38,25 @@ function* actionFetchCreateProduct(action) {
     } catch (error) {
         // yield put(hideLoading());
         yield put(fetchCreateProductFailed(error));
+    }
+}
+// Update
+function* actionFetchUpdateProduct(action) {
+    try {
+        // yield put(showLoading());
+        yield delay(500);
+        const { params } = action.payload;
+        const response = yield call(fetchUpdateProductApi, params);
+        const { data } = response;
+        if (data.success === true) {
+            yield put(fetchUpdateProductSuccess(data));
+        } else {
+            yield put(fetchUpdateProductFailed(data));
+        }
+        // yield put(hideLoading());
+    } catch (error) {
+        // yield put(hideLoading());
+        yield put(fetchUpdateProductFailed(error));
     }
 }
 // List
@@ -101,4 +122,5 @@ export function* watchProduct() {
     yield takeLatest(fetchListProduct.type, actionFetchListProduct);
     yield takeLatest(fetchInfoProduct.type, actionFetchInfoProduct);
     yield takeLatest(fetchDeleteProduct.type, actionFetchDeleteProduct);
+    yield takeLatest(fetchUpdateProduct.type, actionFetchUpdateProduct);
 }

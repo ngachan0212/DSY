@@ -2,14 +2,18 @@ import { axiosBodyToAPI, sendQueryToAPI } from './axiosService';
 import queryString from 'query-string';
 
 const API_CREATE_PRODUCT = "http://localhost:5000/auth/products/create";
+const API_UPDATE_PRODUCT = "http://localhost:5000/auth/products/update";
 const API_LIST_PRODUCT = "http://localhost:5000/auth/products/list";
 const API_INFO_PRODUCT = "http://localhost:5000/auth/products/info";
 const API_DELETE_PRODUCT = "http://localhost:5000/auth/products/delete";
 
 export const fetchCreateProductApi = (params) => {
-    console.log('params', params)
     const body = params;
     return axiosBodyToAPI('POST', API_CREATE_PRODUCT, body);
+};
+export const fetchUpdateProductApi = (params) => {
+    const body = params;
+    return axiosBodyToAPI('PUT', API_UPDATE_PRODUCT, body);
 };
 export const fetchListProductApi = (params = {}) => {
     let queryParams = '';

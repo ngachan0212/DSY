@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useState } from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -21,12 +22,21 @@ import { useDispatch, useSelector } from 'react-redux';
 import {
   fetchListCarts
 } from '../../reducers/carts';
+import Sidebar from './Drawer';
 export default function MenuAppBar() {
   const listProducts = useSelector((state) => state.carts.listProducts);
   const isLoading = useSelector((state) => state.carts.isLoading);
 
   const dispatch = useDispatch();
+  const [openDrawer, setOpenDrawer] = useState(false);
+  const handleOpenDrawer = () => {
+    setOpenDrawer(true);
+  }
+  const handleCloseDrawer = () => {
+    setOpenDrawer(false);
+  }
   const [auth, setAuth] = React.useState(true);
+  const [isAdmin, setIsAdmin] = React.useState(false);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const navigate = useNavigate();
   const handleMenu = (event) => {
@@ -51,6 +61,10 @@ export default function MenuAppBar() {
   useEffect(() => {
     const token = localStorage.getItem('TOKEN');
     if (!token) setAuth(false);
+    const userInfo = localStorage.getItem('USER_INFO');
+    if (userInfo) {
+      if (userInfo.isAdmin) setIsAdmin(true);
+    }
   }, [])
   const handleLogout = () => {
     localStorage.clear();
@@ -69,14 +83,20 @@ export default function MenuAppBar() {
             color="inherit"
             aria-label="menu"
             sx={{ mr: 2 }}
+            onClick={handleOpenDrawer}
           >
-            <MenuIcon />
+            <MenuIcon className={styles.link} />
           </IconButton>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             <Link to={'/home'} className={styles.link}>
               Homepage
             </Link>
           </Typography>
+          <Sidebar
+            isAdmin={isAdmin}
+            openDrawer={openDrawer}
+            handleCloseDrawer={handleCloseDrawer}
+          />
           {auth && (
             <div>
               <IconButton

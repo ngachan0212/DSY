@@ -22,6 +22,7 @@
     font-size: 1.5em;
     font-weight: light;
 }
+
 .colorWhite {
     color: #fff !important;
 }
@@ -33,7 +34,7 @@
 .btnCart {
     background-color: #3C6255 !important;
     color: #fff !important;
-    border: none;
+    border: 1px solid #EAE7B1 !important;
     font-weight: bold;
     margin-right: 2em;
 }

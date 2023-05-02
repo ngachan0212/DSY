@@ -5,7 +5,7 @@ import clsx from 'clsx';
 import styles from './styles.module.css'
 
 export default function ProductComponent(props) {
-  const { productList, filters, handleDeleteProduct } = props;
+  const { productList, filters, handleDeleteProduct, handleOpenEditDialog, isAdmin } = props;
 
   return (
     <Grid container spacing={2} sx={{ mt: 3, mb: 4 }}>
@@ -17,6 +17,8 @@ export default function ProductComponent(props) {
       {productList.map(item => (
         <Grid item xs={4} mb={4}>
           <CardComponent
+            isAdmin={isAdmin}
+            handleOpenEditDialog={handleOpenEditDialog}
             handleDeleteProduct={handleDeleteProduct}
             data={item} />
         </Grid>

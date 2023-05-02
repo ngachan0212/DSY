@@ -9,9 +9,9 @@ import DialogTitle from '@mui/material/DialogTitle';
 
 export default function DialogComponent(props) {
   const { children, open, handleCloseDialog,
-    title, handleSubmit, isPurchase, onlyClose } = props;
+    title, handleSubmit, isPurchase, onlyClose, isEdit } = props;
 
-  const submitBtn = isPurchase ? 'Purchase' : 'Create';
+  const submitBtn = isPurchase ? 'Purchase' : isEdit ? 'Save' : 'Create';
   const closeBtn = onlyClose ? 'Close' : 'Cancel';
   return (
     <div>

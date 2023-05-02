@@ -31,7 +31,7 @@ export const Form = (props) => {
                     <Grid item xs={12} className={styles.label}>
                         <Grid container className={styles.centerBox}>
                             <Grid item xs={2}>
-                                Email
+                                Username
                             </Grid>
                             <Grid item xs={8}>
                                 <TextField
@@ -39,7 +39,7 @@ export const Form = (props) => {
                                     value={userName}
                                     fullWidth
                                     id="outlined-search"
-                                    label="search"
+                                    label="Username"
                                     type="search"
                                     onChange={event => handleInputChange(event)}
                                 />

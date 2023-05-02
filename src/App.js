@@ -27,7 +27,7 @@ function App() {
             <Route path="/" element={<ProtectedRoute component={HomePage} />} />
             <Route path="/login" element={<LoginContainers />} />
             <Route path="/register" element={<RegisterContainer />} />
-            <Route path="/info" element={<InfoContainer />} />
+            <Route path="/info" element={<ProtectedRoute component={InfoContainer} />} />
             <Route path="/home" element={<ProtectedRoute component={HomePage} />} />
             <Route path="/cart" element={<ProtectedRoute component={CartContainer} />} />
             <Route path="/order" element={<ProtectedRoute component={OrderContainer} />} />

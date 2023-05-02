@@ -26,8 +26,20 @@
 }
 
 .btn {
-    color: #EAE7B1;
-    background-color: #192E29;
+    background-color: #3C6255 !important;
+    color: #EAE7B1 !important;
+    font-weight: bold;
+    margin-right: 2em;
+}
 
+.btn:hover {
+    border: none;
+    background-color: #3c6255e0 !important;
+}
 
+.datePicker {
+    border: none;
+    background-color: transparent;
+    border-bottom: 1px solid #888667;
+    width: 80%;
 }
