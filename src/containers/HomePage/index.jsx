@@ -100,7 +100,7 @@ const HomePage = (props) => {
         }
     }, [productInfo])
     useEffect(() => {
-        const userInfo = localStorage.getItem('USER_INFO');
+        const userInfo = JSON.parse(localStorage.getItem('USER_INFO'));
         if (userInfo) {
             if (userInfo.isAdmin) setIsAdmin(true);
         }
@@ -174,11 +174,11 @@ const HomePage = (props) => {
         <Box className={styles.container}>
             <Grid container spacing={2}>
                 <Grid item xs={2}>
-                    <ButtonComponent
+                    {isAdmin && <ButtonComponent
                         styles={styles.yellowBtn}
                         text={"Create new product"}
                         handleClick={handClickAdd}
-                    />
+                    />}
                 </Grid>
                 <Grid item xs={8} >
                     <Box sx={{ marginBottom: "20px", display: 'flex', alignItems: 'center', justifyContent: 'center' }}>

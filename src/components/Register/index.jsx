@@ -28,10 +28,10 @@ const RegisterContainer = (props) => {
       console.log("Password and Confirm Password must be the same")
     }
     const rs = await fetchRegister(registerForm);
-    console.log(rs,'rs')
     if (rs?.data?.success) {
-      localStorage.setItem('TOKEN', rs.data.data.token);
-      navigate("/home");
+      // localStorage.setItem('TOKEN', rs.data.data.token);
+      // localStorage.setItem('USER_INFO', JSON.stringify(rs.data));
+      navigate("/login");
     }
   }
   const token = localStorage.getItem('TOKEN');

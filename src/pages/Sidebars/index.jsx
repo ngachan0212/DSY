@@ -61,7 +61,7 @@ export default function MenuAppBar() {
   useEffect(() => {
     const token = localStorage.getItem('TOKEN');
     if (!token) setAuth(false);
-    const userInfo = localStorage.getItem('USER_INFO');
+    const userInfo = JSON.parse(localStorage.getItem('USER_INFO'));
     if (userInfo) {
       if (userInfo.isAdmin) setIsAdmin(true);
     }
