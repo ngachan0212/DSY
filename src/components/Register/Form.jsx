@@ -104,7 +104,7 @@ export const Form = (props) => {
             <Grid item xs={12} className={styles.label}>
                 <Grid container className={styles.centerBox}>
                     <FormGroup>
-                        <FormControlLabel control={<Checkbox />} label="I have read and agree to Sakura JDG's Terms of Service and Privacy Policy" />
+                        <FormControlLabel control={<Checkbox />} label="I have read and agree to DMS's Terms of Service and Privacy Policy" />
                     </FormGroup>
                 </Grid>
             </Grid>
@@ -114,7 +114,7 @@ export const Form = (props) => {
                         If you have already account, login <Link to="/login">here</Link>
                     </Grid>
                     <Grid item xs={2} sx={{ textAlign: 'right' }}>
-                        <Button className={styles.btnRed} variant="contained"
+                        <Button className={styles.btnBlue} variant="contained"
                             onClick={(event) => handleSubmit(event)}
                         >Register</Button>
                     </Grid>

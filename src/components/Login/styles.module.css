@@ -1,6 +1,6 @@
 .container {
     box-sizing: border-box;
-    background-color: #192E29;
+    background-color: #fff;
     width: 100vw;
     overflow: hidden;
     height: 75vh;
@@ -8,17 +8,17 @@
 }
 
 .title {
-    color: #DB4C3F !important;
+    color: #246ef3 !important;
     font-weight: bold !important;
     font-size: 50px !important;
 }
 
 .subtitle {
-    color: #3C6255;
+    color: #246ef3;
 }
 
 .formContainer {
-    background-color: #EAE7B1;
+    background-color: #edf0f5;
     padding-left: 5%;
     padding-top: 3%;
     padding-bottom: 30px;
@@ -33,14 +33,20 @@
     text-align: left;
 }
 
-.btnRed {
-    background-color: #F16255 !important;
+.btnBlue {
+    background-color: #246ef3 !important;
     border-radius: 20px;
     color: white;
 }
 
-.textWhite {
-    color: #fff
+.textBlack {
+    color: #212529;
+    padding-top: 20px
+}
+.textPara {
+    color: #212529;
+    font-size: large;
+    padding-left: 20px
 }
 
 .description {

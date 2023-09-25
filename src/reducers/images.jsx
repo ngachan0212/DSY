@@ -15,6 +15,7 @@ const imageSlice = createSlice({
             state.isLoading = true;
         },
         fetchCreateImageSuccess: (state, action) => {
+            // eslint-disable-next-line
             const { data, message } = action.payload;
             // toastSuccess(message);
             state.data = data;

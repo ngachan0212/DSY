@@ -1,4 +1,5 @@
 import { axiosBodyToAPI, sendQueryToAPI } from './axiosService';
+// eslint-disable-next-line
 import queryString from 'query-string';
 
 const API_UPDATE_USERS = "http://localhost:5000/auth/users/update";

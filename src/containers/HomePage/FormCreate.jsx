@@ -100,7 +100,7 @@ export default function FormCreate(props) {
                     <Box sx={{ textAlign: 'center' }}>
                         {selectedImage && (
                             <div>
-                                <img alt="not fount" width={"90%"} height={"60%"} style={{ objectFit: 'cover' }} src={URL.createObjectURL(selectedImage)} />
+                                <img alt="not found" width={"90%"} height={"60%"} style={{ objectFit: 'cover' }} src={URL.createObjectURL(selectedImage)} />
                                 <br />
                             </div>
                         )}

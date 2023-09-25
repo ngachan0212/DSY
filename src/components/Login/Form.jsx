@@ -72,7 +72,7 @@ export const Form = (props) => {
                         If you don't have exist account, please register <Link to="/register">here</Link>
                     </Grid>
                     <Grid item xs={2} sx={{ textAlign: 'right' }}>
-                        <Button className={styles.btnRed} variant="contained" onClick={(event) => handleSubmit(event)}>Login</Button>
+                        <Button className={styles.btnBlue} variant="contained" onClick={(event) => handleSubmit(event)}>Login</Button>
                     </Grid>
                     <Grid item xs={2}>
                     </Grid>

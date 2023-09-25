@@ -59,7 +59,7 @@ const HomePage = (props) => {
     const [openEditDialog, setOpenEditDialog] = useState(false);
     const [selectedImage, setSelectedImage] = useState(null);
     const [productObjId, setProductObjId] = useState(null);
-    const [isAdmin, setIsAdmin] = React.useState(false);
+    const [isAdmin, setIsAdmin] = React.useState(true);
 
     const imageUrl = useSelector((state) => state.images.data);
     const productList = useSelector((state) => state.products.dataList);

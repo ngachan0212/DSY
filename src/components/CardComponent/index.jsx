@@ -22,7 +22,7 @@ export default function CardComponent(props) {
                 title="green iguana"
             />
             <CardContent sx={{ textAlign: 'center' }}>
-                <Typography className={styles.yellowColor} mb={1}>
+                <Typography className={styles.yellowColor2} mb={1}>
                     {data.productName}
                 </Typography>
                 <span className={styles.category}>

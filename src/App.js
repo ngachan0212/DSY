@@ -13,6 +13,7 @@ import { Provider } from 'react-redux';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import ProtectedRoute from "./containers/ProtectedRoute";
 import configureStore from './redux/configureStore';
+// eslint-disable-next-line
 import { Slide, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 function App() {

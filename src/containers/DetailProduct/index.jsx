@@ -112,10 +112,10 @@ export default function DetailProduct(props) {
                     </Grid>
                     <Grid item xs={9}>
                         <Typography variant="h3" gutterBottom className={styles.title}>
-                            {data.productName} - {data.category}
+                            {data.productName} 
                         </Typography>
                         <Typography className={styles.price} variant="h6" gutterBottom mt={5}>
-                            {convertFormatMoney(data.price)} Đ
+                            {convertFormatMoney(data.price)} VNĐ
                         </Typography>
                         <Box display="flex" alignItems="center" mt={5}>
                             <Typography className={styles.label} variant="subtitle1" mr={3}>

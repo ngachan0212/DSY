@@ -41,11 +41,11 @@ const RegisterContainer = (props) => {
       <Grid container spacing={2}>
         <Grid item xs={5}>
           <Box sx={{ paddingLeft: '10px' }}>
-            <Typography className={styles.textWhite} variant="h2" gutterBottom>
-              WELCOME TO SAKURA JDG
+            <Typography className={styles.textBlue} variant="h4" gutterBottom>
+              Welcome!
             </Typography>
             <Typography variant="subtitle1" gutterBottom className={styles.description}>
-              Register to update latest products and promotion information
+              By logging into DMS, you acknowledge that you have reviewed the <br /> <strong>Terms</strong> & <strong>Conditions</strong> and <strong>Privacy Policy</strong> and agree to comply with the <br /> <strong>Term</strong> & <strong>Conditions</strong>.
             </Typography>
           </Box>
         </Grid>
